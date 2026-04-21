@@ -111,8 +111,10 @@ html.site-open .paper-grain {
 .envelope-scene {
   position: relative;
   width: min(540px, 100%);
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: clamp(2rem, 6vw, 4rem) 0 1rem;
   perspective: 1400px;
   perspective-origin: 50% 0%;
@@ -122,7 +124,10 @@ html.site-open .paper-grain {
 
 .envelope {
   position: relative;
-  width: clamp(290px, 80vw, 500px);
+  /* Letter is inset 7% on each side → letter width = 86% of envelope width.
+     width = 100vw / 0.86 makes the envelope-letter exactly 100vw.
+     Capped at 540px on larger screens. */
+  width: clamp(290px, calc(100vw / 0.86), 540px);
   aspect-ratio: 5 / 3.2;
   transform-style: preserve-3d;
 }
@@ -1893,6 +1898,31 @@ html.site-open .paper-grain {
 }
 
 /* ─── Responsive ────────────────────────────────────────── */
+
+/* Narrow viewports — strip the page's side padding so the envelope
+   (now sized by 100vw/0.86) can overflow symmetrically past both
+   viewport edges. Body overflow: hidden (set via JS when sealed) clips
+   the flap corners so the inner letter sits flush with the screen. */
+/* On narrow viewports, remove the 540px clamp max so the envelope grows
+   past the viewport — the inner envelope-letter (86% of envelope width)
+   lands exactly at 100vw. Overflow is clipped symmetrically by body. */
+@media (max-width: 640px) {
+  .invitation-page:not(.is-open) {
+    padding: 0;
+  }
+  .envelope-scene {
+    width: 100%;
+    max-width: none;
+    overflow: visible;
+  }
+  .envelope {
+    width: calc(100vw / 0.86) !important;
+    max-width: none !important;
+  }
+  .envelope-letter-line {
+    font-size: 1.2rem;
+  }
+}
 
 @media (max-width: 900px) {
 
