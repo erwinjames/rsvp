@@ -81,6 +81,151 @@ const GALLERY_IMGS: Array<{ src: string; alt: string; span?: string }> = [
   { src: "https://images.unsplash.com/photo-1460978812857-470ed1c77af0?auto=format&fit=crop&w=1000&q=80",  alt: "A field of wildflowers", span: "tall" },
 ];
 
+const WEDDING_DATE = new Date("2026-10-17T17:30:00-07:00");
+
+/* ─── Falling rose petals on hero ──────────────────────── */
+function Petals({ count = 16 }: { count?: number }) {
+  const petals = useMemo(
+    () =>
+      Array.from({ length: count }).map((_, i) => ({
+        key: i,
+        left: Math.random() * 100,
+        delay: -Math.random() * 22,
+        duration: 14 + Math.random() * 16,
+        swayDuration: 4 + Math.random() * 4,
+        drift: (Math.random() - 0.3) * 180,
+        scale: 0.55 + Math.random() * 0.9,
+        hue: Math.floor(Math.random() * 3),
+      })),
+    [count],
+  );
+
+  return (
+    <div className="petals" aria-hidden="true">
+      {petals.map((p) => (
+        <span
+          key={p.key}
+          className={`petal petal-hue-${p.hue}`}
+          style={
+            {
+              "--left": `${p.left}%`,
+              "--delay": `${p.delay}s`,
+              "--duration": `${p.duration}s`,
+              "--sway-duration": `${p.swayDuration}s`,
+              "--drift": `${p.drift}px`,
+              "--scale": p.scale,
+            } as React.CSSProperties
+          }
+        >
+          <svg viewBox="0 0 20 18" aria-hidden="true">
+            <path
+              d="M 10 1 C 4 5, 1 12, 10 17 C 19 12, 16 5, 10 1 Z"
+              fill="currentColor"
+            />
+            <path
+              d="M 10 4 C 7 7, 6 11, 10 14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="0.5"
+              strokeOpacity="0.35"
+            />
+          </svg>
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/* ─── Live countdown to the wedding ────────────────────── */
+type Diff = { days: number; hours: number; minutes: number };
+
+function diffToTarget(target: Date): Diff {
+  const ms = Math.max(0, target.getTime() - Date.now());
+  const days = Math.floor(ms / 86_400_000);
+  const hours = Math.floor((ms % 86_400_000) / 3_600_000);
+  const minutes = Math.floor((ms % 3_600_000) / 60_000);
+  return { days, hours, minutes };
+}
+
+function Countdown({ target }: { target: Date }) {
+  const [diff, setDiff] = useState<Diff | null>(null);
+
+  useEffect(() => {
+    setDiff(diffToTarget(target));
+    const id = setInterval(() => setDiff(diffToTarget(target)), 30_000);
+    return () => clearInterval(id);
+  }, [target]);
+
+  if (!diff) return null;
+
+  const done = diff.days === 0 && diff.hours === 0 && diff.minutes === 0;
+
+  return (
+    <div className="countdown" aria-live="polite">
+      <span className="countdown-label">
+        {done ? "Today is the day" : "Until we say I do"}
+      </span>
+      {!done && (
+        <div className="countdown-units">
+          <span className="countdown-unit">
+            <b>{diff.days}</b>
+            <em>days</em>
+          </span>
+          <span className="countdown-sep" aria-hidden="true">·</span>
+          <span className="countdown-unit">
+            <b>{String(diff.hours).padStart(2, "0")}</b>
+            <em>hours</em>
+          </span>
+          <span className="countdown-sep" aria-hidden="true">·</span>
+          <span className="countdown-unit">
+            <b>{String(diff.minutes).padStart(2, "0")}</b>
+            <em>min</em>
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ─── Confetti burst on RSVP success ──────────────────── */
+function Confetti({ count = 36 }: { count?: number }) {
+  const pieces = useMemo(
+    () =>
+      Array.from({ length: count }).map((_, i) => ({
+        key: i,
+        left: 10 + Math.random() * 80,
+        delay: Math.random() * 0.25,
+        duration: 1.8 + Math.random() * 1.4,
+        drift: (Math.random() - 0.5) * 260,
+        rotate: Math.random() * 720 - 360,
+        scale: 0.6 + Math.random() * 0.8,
+        hue: Math.floor(Math.random() * 4),
+      })),
+    [count],
+  );
+
+  return (
+    <div className="confetti" aria-hidden="true">
+      {pieces.map((p) => (
+        <span
+          key={p.key}
+          className={`confetti-piece confetti-hue-${p.hue}`}
+          style={
+            {
+              "--left": `${p.left}%`,
+              "--delay": `${p.delay}s`,
+              "--duration": `${p.duration}s`,
+              "--drift": `${p.drift}px`,
+              "--rotate": `${p.rotate}deg`,
+              "--scale": p.scale,
+            } as React.CSSProperties
+          }
+        />
+      ))}
+    </div>
+  );
+}
+
 function useReveal<T extends HTMLElement>(deps: unknown[] = []) {
   const ref = useRef<T | null>(null);
 
@@ -129,6 +274,11 @@ export default function Home() {
   const [submittedName, setSubmittedName] = useState<string | null>(null);
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
   const [submitState, setSubmitState] = useState<"idle" | "saving" | "success" | "error">("idle");
+  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  const heroImgRef = useRef<HTMLImageElement | null>(null);
+  const heroCrestRef = useRef<HTMLDivElement | null>(null);
 
   const canOpenEnvelope = stage === "sealed";
   const isEnvelopeOpening = stage === "opening";
@@ -148,10 +298,51 @@ export default function Home() {
     };
   }, [isEnvelopeRevealed]);
 
+  // lightbox keyboard controls
+  useEffect(() => {
+    if (lightboxIdx === null) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setLightboxIdx(null);
+      if (e.key === "ArrowRight") setLightboxIdx((i) => (i === null ? null : (i + 1) % GALLERY_IMGS.length));
+      if (e.key === "ArrowLeft")  setLightboxIdx((i) => (i === null ? null : (i - 1 + GALLERY_IMGS.length) % GALLERY_IMGS.length));
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightboxIdx]);
+
+  // mouse parallax on hero image + 3D tilt on hero crest
+  useEffect(() => {
+    if (!isEnvelopeRevealed) return;
+    let raf = 0;
+    function onMove(e: MouseEvent) {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 2;  // -1..1
+        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+        const img = heroImgRef.current;
+        if (img) {
+          img.style.setProperty("--mx", String(x));
+          img.style.setProperty("--my", String(y));
+        }
+        const crest = heroCrestRef.current;
+        if (crest) {
+          crest.style.setProperty("--tx", String(x));
+          crest.style.setProperty("--ty", String(y));
+        }
+        raf = 0;
+      });
+    }
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [isEnvelopeRevealed]);
+
   function openEnvelope() {
     if (!canOpenEnvelope) return;
     setStage("opening");
-    window.setTimeout(() => setStage("revealed"), 1900);
+    window.setTimeout(() => setStage("revealed"), 1700);
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -184,6 +375,10 @@ export default function Home() {
       setSubmitState("success");
       setSubmitMessage("Your reply is tucked between the pages.");
       event.currentTarget.reset();
+      if (attendance === "yes") {
+        setShowConfetti(true);
+        window.setTimeout(() => setShowConfetti(false), 3500);
+      }
     } catch {
       setSubmitState("error");
       setSubmitMessage("Could not send the letter. Check Firebase config and try again.");
@@ -238,9 +433,11 @@ export default function Home() {
         <section className="hero">
           <div className="hero-image">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={HERO_IMG} alt="" decoding="async" />
+            <img ref={heroImgRef} src={HERO_IMG} alt="" decoding="async" />
             <div className="hero-image-wash" aria-hidden="true" />
           </div>
+
+          <Petals />
 
           <aside className="date-strip" aria-hidden="true">
             <span className="date-strip-year">MMXXVI</span>
@@ -256,7 +453,7 @@ export default function Home() {
               <span>Together with their families</span>
             </p>
 
-            <div className="hero-crest">
+            <div className="hero-crest" ref={heroCrestRef}>
               <OliveCrest />
             </div>
 
@@ -267,10 +464,23 @@ export default function Home() {
               <span className="name-line name-line-right">Lucas</span>
             </h1>
 
+            <svg
+              className="names-swash"
+              viewBox="0 0 380 40"
+              aria-hidden="true"
+              role="presentation"
+            >
+              <path d="M 8 28 C 60 10, 130 36, 190 22 S 320 10, 372 28" />
+              <circle className="swash-dot" cx="4" cy="29" />
+              <circle className="swash-dot" cx="376" cy="29" />
+            </svg>
+
             <p className="hero-date">
               Saturday · October seventeenth · Two thousand twenty-six
             </p>
             <p className="hero-venue">The Gilded Conservatory — Larkspur Estate</p>
+
+            <Countdown target={WEDDING_DATE} />
 
             <a className="scroll-cue" href="#story" aria-label="Scroll to our story">
               <span>scroll</span>
@@ -370,9 +580,24 @@ export default function Home() {
 
           <div className="gallery-grid">
             {GALLERY_IMGS.map((img, i) => (
-              <figure key={img.src} className={`gallery-item ${img.span ? `is-${img.span}` : ""}`} style={{ "--i": i } as React.CSSProperties}>
+              <figure
+                key={img.src}
+                className={`gallery-item ${img.span ? `is-${img.span}` : ""}`}
+                style={{ "--i": i } as React.CSSProperties}
+                onClick={() => setLightboxIdx(i)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setLightboxIdx(i);
+                  }
+                }}
+                aria-label={`Expand photo: ${img.alt}`}
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={img.src} alt={img.alt} loading="lazy" />
+                <span className="gallery-expand" aria-hidden="true">+</span>
               </figure>
             ))}
           </div>
@@ -515,6 +740,63 @@ export default function Home() {
             We cannot wait to dance with you.
           </p>
         </footer>
+
+        {/* LIGHTBOX */}
+        {lightboxIdx !== null && (
+          <div
+            className="lightbox"
+            role="dialog"
+            aria-modal="true"
+            aria-label={GALLERY_IMGS[lightboxIdx].alt}
+            onClick={() => setLightboxIdx(null)}
+          >
+            <button
+              type="button"
+              className="lightbox-close"
+              onClick={(e) => { e.stopPropagation(); setLightboxIdx(null); }}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <button
+              type="button"
+              className="lightbox-nav lightbox-prev"
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxIdx((i) =>
+                  i === null ? null : (i - 1 + GALLERY_IMGS.length) % GALLERY_IMGS.length,
+                );
+              }}
+              aria-label="Previous photo"
+            >
+              ‹
+            </button>
+            <figure className="lightbox-figure" onClick={(e) => e.stopPropagation()}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={GALLERY_IMGS[lightboxIdx].src} alt={GALLERY_IMGS[lightboxIdx].alt} />
+              <figcaption>{GALLERY_IMGS[lightboxIdx].alt}</figcaption>
+            </figure>
+            <button
+              type="button"
+              className="lightbox-nav lightbox-next"
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxIdx((i) =>
+                  i === null ? null : (i + 1) % GALLERY_IMGS.length,
+                );
+              }}
+              aria-label="Next photo"
+            >
+              ›
+            </button>
+            <p className="lightbox-counter">
+              {lightboxIdx + 1} / {GALLERY_IMGS.length}
+            </p>
+          </div>
+        )}
+
+        {/* CONFETTI */}
+        {showConfetti && <Confetti />}
       </main>
       )}
     </div>
