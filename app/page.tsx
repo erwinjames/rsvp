@@ -70,8 +70,13 @@ function Sprig({ className = "" }: { className?: string }) {
 }
 
 const HERO_IMG     = "https://images.unsplash.com/photo-1529634597503-139d3726fed5?auto=format&fit=crop&w=1800&q=80";
-const STORY_IMG    = "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1100&q=80";
 const VENUE_IMG    = "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1400&q=80";
+
+const STORY_POLAROIDS: Array<{ src: string; caption: string; year: string }> = [
+  { src: "https://images.unsplash.com/photo-1525772764200-be829a350797?auto=format&fit=crop&w=700&q=80", caption: "under the umbrella",    year: "MMXIV" },
+  { src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80", caption: "a long walk home",      year: "MMXVII" },
+  { src: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=700&q=80", caption: "the small, small things", year: "MMXXIII" },
+];
 const GALLERY_IMGS: Array<{ src: string; alt: string; span?: string }> = [
   { src: "https://images.unsplash.com/photo-1525772764200-be829a350797?auto=format&fit=crop&w=900&q=80",   alt: "A bouquet on a wooden bench", span: "tall" },
   { src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1100&q=80",  alt: "A wedding arch at golden hour" },
@@ -266,6 +271,167 @@ function Revealable({
     <Tag ref={ref} className={`reveal ${className}`} {...rest}>
       {children}
     </Tag>
+  );
+}
+
+/* ─── Scroll-linked story section ──────────────────────── */
+function StorySection() {
+  const ref = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+          }
+        }
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -10% 0px" },
+    );
+    io.observe(el);
+
+    let raf = 0;
+    function update() {
+      raf = 0;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      const total = rect.height + vh;
+      const scrolled = vh - rect.top;
+      const p = Math.max(0, Math.min(1, scrolled / total));
+      el.style.setProperty("--sp", p.toFixed(4));
+    }
+    function onScroll() {
+      if (raf) return;
+      raf = requestAnimationFrame(update);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    update();
+
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  return (
+    <section ref={ref} id="story" className="story-v2 reveal">
+      {/* ambient drifting umbrella */}
+      <svg className="story-umbrella" viewBox="0 0 80 80" aria-hidden="true">
+        <g fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M40 10 C 16 10 8 30 8 34 L 72 34 C 72 30 64 10 40 10 Z" />
+          <path d="M8 34 Q 16 40 24 34 Q 32 40 40 34 Q 48 40 56 34 Q 64 40 72 34" />
+          <path d="M40 10 L 40 34" />
+          <path d="M40 34 L 40 62 C 40 68 45 70 50 66" />
+          <path d="M22 33 L 20 12" strokeWidth="0.7" />
+          <path d="M58 33 L 60 12" strokeWidth="0.7" />
+        </g>
+      </svg>
+
+      {/* falling rain lines (subtle, behind polaroids) */}
+      <div className="story-rain" aria-hidden="true">
+        {Array.from({ length: 14 }).map((_, i) => (
+          <span
+            key={i}
+            style={{
+              "--rx": `${(i * 7.3) % 100}%`,
+              "--rd": `${(i * 0.37) % 2.2}s`,
+              "--rs": `${2.4 + ((i * 0.53) % 1.8)}s`,
+            } as React.CSSProperties}
+          />
+        ))}
+      </div>
+
+      <div className="story-grid">
+        {/* ─── left: polaroid stack ─── */}
+        <div className="story-v2-photos">
+          <div className="polaroid-stack">
+            {STORY_POLAROIDS.map((p, i) => (
+              <figure
+                key={p.src}
+                className="polaroid"
+                style={{ "--idx": i } as React.CSSProperties}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={p.src} alt="" loading="lazy" />
+                <figcaption>
+                  <span className="polaroid-caption">{p.caption}</span>
+                  <span className="polaroid-year">{p.year}</span>
+                </figcaption>
+                <span className="polaroid-tape" aria-hidden="true" />
+              </figure>
+            ))}
+          </div>
+
+          <p className="story-fan-hint" aria-hidden="true">
+            <span>keep scrolling</span>
+            <svg viewBox="0 0 40 10">
+              <path d="M 2 5 L 36 5" />
+              <path d="M 30 1 L 36 5 L 30 9" fill="none" />
+            </svg>
+          </p>
+        </div>
+
+        {/* ─── right: text ─── */}
+        <div className="story-v2-text">
+          <div className="story-chapter">
+            <span>Chapter I</span>
+            <span className="story-chapter-years">2014 — 2026</span>
+          </div>
+
+          <p className="section-label">Our story</p>
+
+          <h2 className="section-heading story-v2-heading">
+            A rainy{" "}
+            <span className="story-v2-em">
+              <em>Thursday</em>
+              <svg className="story-v2-underline" viewBox="0 0 220 14" aria-hidden="true">
+                <path d="M 4 9 Q 55 2 110 7 T 216 5" />
+              </svg>
+            </span>
+            <br />
+            that never quite ended.
+          </h2>
+
+          <div className="story-v2-body">
+            <p className="story-v2-para">
+              <span className="dropcap">W</span>e met under a borrowed umbrella
+              neither of us wanted to return. Somewhere between laughter and a
+              long walk home, our forever quietly began.
+            </p>
+            <p className="story-v2-para">
+              What followed was a decade of small, ordinary things that became
+              our most extraordinary memories.
+            </p>
+          </div>
+
+          <ul className="story-moments" aria-label="little things we love">
+            <li><span className="moment-dot" /> coffee on the balcony</li>
+            <li><span className="moment-dot" /> handwritten notes in books</li>
+            <li><span className="moment-dot" /> kitchen dances at midnight</li>
+            <li><span className="moment-dot" /> Sunday market flowers</li>
+          </ul>
+
+          <p className="story-v2-closing">
+            Now we are gathering with the people we love most to begin the next
+            chapter together. Your presence, in any form, would mean the world.
+          </p>
+
+          <p className="story-v2-signoff">
+            — with love,
+            <br />
+            <span className="story-signoff-names">Elena &amp; Lucas</span>
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -490,35 +656,7 @@ export default function Home() {
         </section>
 
         {/* STORY */}
-        <Revealable className="story-section" id="story">
-          <div className="story-photo">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={STORY_IMG} alt="" />
-            <Sprig className="story-sprig" />
-          </div>
-          <div className="story-text">
-            <p className="section-label">Our story</p>
-            <h2 className="section-heading">
-              A rainy <em>Thursday</em> that never quite ended.
-            </h2>
-            <p className="story-intro">
-              <span className="dropcap">W</span>e met under a borrowed umbrella neither of
-              us wanted to return. Somewhere between laughter and a long walk home, our
-              forever quietly began. What followed was a decade of small, ordinary things
-              that became our most extraordinary memories — coffee on the balcony,
-              handwritten notes tucked into books, kitchen dances when no one was watching.
-            </p>
-            <p className="story-paragraph">
-              Now we are gathering with the people we love most to begin the next chapter
-              together. Your presence, in any form, would mean the world.
-            </p>
-            <p className="story-signoff">
-              — with love,
-              <br />
-              <span className="story-signoff-names">Elena &amp; Lucas</span>
-            </p>
-          </div>
-        </Revealable>
+        <StorySection />
 
         {/* TIMELINE */}
         <Revealable className="timeline-section">
