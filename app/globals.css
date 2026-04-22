@@ -656,6 +656,15 @@ html.site-open .paper-grain {
   overflow: hidden;
   isolation: isolate;
   text-align: center;
+
+  /* temporary backdrop while the hero photo is disabled — mirrors the
+     dark sepia mood of the image + wash so the cream text stays legible.
+     Remove this `background-color` + `background-image` pair when the
+     <img> is restored. */
+  background-color: #0f0308;
+  background-image:
+    radial-gradient(ellipse at 50% 40%, #2a0e13 0%, #190610 55%, #0f0308 100%),
+    linear-gradient(180deg, #3d0a14 0%, #0f0308 100%);
 }
 
 .hero-image {
@@ -712,7 +721,9 @@ html.site-open .paper-grain {
     brightness(0.86)
     contrast(1.04)
     drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55));
-  mix-blend-mode: multiply;
+  /* mix-blend-mode: multiply; — disabled while the hero photo is off;
+     multiply darkens burgundy roses against the temporary dark backdrop
+     until they vanish. Restore when the hero <img> is uncommented. */
 
   /* entrance — independent `scale` property composes cleanly with each
      corner's static `transform` flip */

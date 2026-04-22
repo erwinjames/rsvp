@@ -736,11 +736,12 @@ export default function Home() {
       <main className={`wedding-site ${isEnvelopeRevealed ? "is-visible" : ""}`} aria-hidden={siteAriaHidden}>
         {/* HERO */}
         <section className="hero">
+          {/* hero background image — disabled for now, will use later
           <div className="hero-image">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img ref={heroImgRef} src={HERO_IMG} alt="" decoding="async" />
             <div className="hero-image-wash" aria-hidden="true" />
           </div>
+          */}
 
           <Petals />
 
