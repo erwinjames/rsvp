@@ -17,8 +17,8 @@ const bodyFont = EB_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Elena & Lucas — a letter to you",
-  description: "A botanical letterpress invitation. Saturday, October 17, 2026.",
+  title: "Grasya & Valian — a letter to you",
+  description: "A botanical letterpress invitation. Saturday, June 8, 2026.",
 };
 
 export default function RootLayout({
