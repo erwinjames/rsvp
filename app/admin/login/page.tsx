@@ -72,7 +72,7 @@ export default function AdminLoginPage() {
     setError(null);
 
     if (!hasRequiredConfig || !auth) {
-      setError("Firebase is not configured. Add values to .env.local and restart dev.");
+      setError("Firebase is not configured. Add values to .env and restart dev.");
       return;
     }
 

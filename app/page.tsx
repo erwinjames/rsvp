@@ -1,10 +1,12 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { useRouter } from "next/navigation";
+import { addDoc, collection, doc, onSnapshot, serverTimestamp } from "firebase/firestore";
 import { db, hasRequiredConfig } from "@/lib/firebase";
 
 type Stage = "sealed" | "opening" | "playing" | "revealed";
+type SiteStage = "pamalaye" | "wedding";
 
 // YouTube video id for "Little Things — One Direction". Swap if needed.
 const MUSIC_VIDEO_ID = "QJO3ROT-A4E";
@@ -442,6 +444,34 @@ function StorySection() {
 }
 
 export default function Home() {
+  const router = useRouter();
+  // live site stage — null while resolving. When "pamalaye", redirect to /pamalaye.
+  const [siteStage, setSiteStage] = useState<SiteStage | null>(null);
+
+  useEffect(() => {
+    if (!hasRequiredConfig || !db) {
+      // no firebase → preserve the original wedding-invitation baseline
+      setSiteStage("wedding");
+      return;
+    }
+    const unsub = onSnapshot(
+      doc(db, "config", "site"),
+      (snap) => {
+        const next = snap.exists() ? (snap.data() as { stage?: SiteStage })?.stage : undefined;
+        setSiteStage(next === "wedding" ? "wedding" : "pamalaye");
+      },
+      () => setSiteStage("wedding"),
+    );
+    return () => unsub();
+  }, []);
+
+  // if we're still in pamalaye, this route should live at /pamalaye
+  useEffect(() => {
+    if (siteStage === "pamalaye") {
+      router.replace("/pamalaye");
+    }
+  }, [siteStage, router]);
+
   const [stage, setStage] = useState<Stage>("sealed");
   const [submittedName, setSubmittedName] = useState<string | null>(null);
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
@@ -464,15 +494,16 @@ export default function Home() {
     [isEnvelopeRevealed],
   );
 
-  // lock scroll until the envelope is opened
+  // lock scroll until the envelope is opened (wedding stage only)
   useEffect(() => {
     if (typeof document === "undefined") return;
+    if (siteStage !== "wedding") return;
     document.documentElement.classList.toggle("site-open", isEnvelopeRevealed);
     document.body.style.overflow = isEnvelopeRevealed ? "" : "hidden";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isEnvelopeRevealed]);
+  }, [isEnvelopeRevealed, siteStage]);
 
   // lightbox keyboard controls
   useEffect(() => {
@@ -542,7 +573,7 @@ export default function Home() {
 
     if (!hasRequiredConfig || !db) {
       setSubmitState("error");
-      setSubmitMessage("Firebase is not configured yet. Add values to .env.local and restart dev.");
+      setSubmitMessage("Firebase is not configured yet. Add values to .env and restart dev.");
       return;
     }
 
@@ -567,6 +598,11 @@ export default function Home() {
       setSubmitState("error");
       setSubmitMessage("Could not send the letter. Check Firebase config and try again.");
     }
+  }
+
+  // hold a neutral loading state while we resolve + while we're bouncing to /pamalaye
+  if (siteStage === null || siteStage === "pamalaye") {
+    return <div className="pamalaye-boot" aria-hidden="true" />;
   }
 
   return (

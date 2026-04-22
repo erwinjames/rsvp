@@ -4,7 +4,16 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
-import { collection, onSnapshot, orderBy, query, Timestamp } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+  setDoc,
+  Timestamp,
+} from "firebase/firestore";
 import { auth, db, hasRequiredConfig } from "@/lib/firebase";
 
 type RSVP = {
@@ -16,6 +25,8 @@ type RSVP = {
   createdAt: Timestamp | null;
 };
 
+type SiteStage = "pamalaye" | "wedding";
+
 export default function AdminPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
@@ -24,6 +35,12 @@ export default function AdminPage() {
   const [rsvpsLoading, setRsvpsLoading] = useState(true);
   const [listError, setListError] = useState<string | null>(null);
   const [filter, setFilter] = useState<"all" | "yes" | "no">("all");
+
+  // site stage (pamalaye | wedding)
+  const [siteStage, setSiteStage] = useState<SiteStage>("pamalaye");
+  const [stageCompletedAt, setStageCompletedAt] = useState<Timestamp | null>(null);
+  const [stageSaving, setStageSaving] = useState(false);
+  const [stageError, setStageError] = useState<string | null>(null);
 
   // auth gate
   useEffect(() => {
@@ -75,6 +92,54 @@ export default function AdminPage() {
     return () => unsubscribe();
   }, [user]);
 
+  // subscribe to site stage doc
+  useEffect(() => {
+    if (!user || !db) return;
+    const unsub = onSnapshot(
+      doc(db, "config", "site"),
+      (snap) => {
+        if (!snap.exists()) {
+          setSiteStage("pamalaye");
+          setStageCompletedAt(null);
+          return;
+        }
+        const data = snap.data() as {
+          stage?: SiteStage;
+          pamalayeCompletedAt?: Timestamp;
+        };
+        setSiteStage(data.stage === "wedding" ? "wedding" : "pamalaye");
+        setStageCompletedAt(data.pamalayeCompletedAt ?? null);
+      },
+      (err) => setStageError("Could not read site stage. " + err.message),
+    );
+    return () => unsub();
+  }, [user]);
+
+  async function setStage(nextStage: SiteStage) {
+    if (!db || stageSaving) return;
+    setStageSaving(true);
+    setStageError(null);
+    try {
+      await setDoc(
+        doc(db, "config", "site"),
+        {
+          stage: nextStage,
+          ...(nextStage === "wedding"
+            ? { pamalayeCompletedAt: serverTimestamp() }
+            : { pamalayeCompletedAt: null }),
+        },
+        { merge: true },
+      );
+    } catch (err) {
+      setStageError(
+        "Could not update the site stage. " +
+          (err instanceof Error ? err.message : "Unknown error."),
+      );
+    } finally {
+      setStageSaving(false);
+    }
+  }
+
   const stats = useMemo(() => {
     const attending = rsvps.filter((r) => r.attendance === "yes");
     const regrets = rsvps.filter((r) => r.attendance === "no");
@@ -105,7 +170,7 @@ export default function AdminPage() {
           <article className="admin-card">
             <h1 className="admin-heading">Firebase not configured</h1>
             <p className="admin-sub">
-              Add the required values to <code>.env.local</code> and restart the dev server.
+              Add the required values to <code>.env</code> and restart the dev server.
             </p>
           </article>
         </main>
@@ -145,6 +210,80 @@ export default function AdminPage() {
           </button>
         </div>
       </header>
+
+      <section
+        className={`stage-card stage-card-${siteStage}`}
+        aria-label="Site journey stage"
+      >
+        <div className="stage-card-head">
+          <p className="stage-card-eyebrow">Journey</p>
+          <h2 className="stage-card-title">
+            {siteStage === "pamalaye" ? (
+              <>We&rsquo;re in the <em>pamalaye.</em></>
+            ) : (
+              <>The invitation is <em>live.</em></>
+            )}
+          </h2>
+          <p className="stage-card-sub">
+            {siteStage === "pamalaye"
+              ? "Guests visiting the site see the quiet holding page — two houses, a countdown, and the reason we gather."
+              : "Every guest now sees the full wedding invitation, with RSVP open."}
+          </p>
+          {stageCompletedAt ? (
+            <p className="stage-card-meta">
+              pamalaye marked complete · {formatDate(stageCompletedAt)}
+            </p>
+          ) : null}
+        </div>
+
+        <div className="stage-card-actions">
+          {siteStage === "pamalaye" ? (
+            <button
+              type="button"
+              className="stage-advance"
+              onClick={() => {
+                if (
+                  window.confirm(
+                    "Mark the pamalaye as complete? This replaces the holding page with the full wedding invitation for every guest.",
+                  )
+                ) {
+                  setStage("wedding");
+                }
+              }}
+              disabled={stageSaving}
+            >
+              <span className="stage-advance-label">
+                {stageSaving ? "Sealing…" : "Mark pamalaye as complete"}
+              </span>
+              <span className="stage-advance-arrow" aria-hidden="true">→</span>
+              <span className="stage-advance-sub">reveal the invitation</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="stage-revert"
+              onClick={() => {
+                if (
+                  window.confirm(
+                    "Return the site to the pamalaye holding page? The wedding invitation will be hidden again.",
+                  )
+                ) {
+                  setStage("pamalaye");
+                }
+              }}
+              disabled={stageSaving}
+            >
+              {stageSaving ? "Returning…" : "Return to pamalaye"}
+            </button>
+          )}
+        </div>
+
+        {stageError ? (
+          <p className="stage-card-error" role="alert">
+            {stageError}
+          </p>
+        ) : null}
+      </section>
 
       <section className="dashboard-stats" aria-label="Reply summary">
         <article className="stat">
