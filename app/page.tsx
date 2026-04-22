@@ -94,7 +94,7 @@ const GALLERY_IMGS: Array<{ src: string; alt: string; span?: string }> = [
   { src: "https://images.unsplash.com/photo-1460978812857-470ed1c77af0?auto=format&fit=crop&w=1000&q=80", alt: "A field of wildflowers", span: "tall" },
 ];
 
-const WEDDING_DATE = new Date("2026-10-17T17:30:00-07:00");
+const WEDDING_DATE = new Date("2026-06-08T16:00:00-07:00");
 
 /* ─── Falling rose petals on hero ──────────────────────── */
 function Petals({ count = 16 }: { count?: number }) {
@@ -801,9 +801,9 @@ export default function Home() {
               </svg>
 
               <p className="hero-date">
-                Saturday · October seventeenth · Two thousand twenty-six
+                Monday · June eighth · Two thousand twenty-six
               </p>
-              <p className="hero-venue">The Gilded Conservatory — Larkspur Estate</p>
+              <p className="hero-venue">Ermita, Poblacion, Pamplona, Negros Oriental</p>
 
               <Countdown target={WEDDING_DATE} />
 

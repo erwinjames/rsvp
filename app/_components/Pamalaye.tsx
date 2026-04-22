@@ -3,8 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 
 type Diff = { days: number; hours: number; minutes: number };
+type Stage = "sealed" | "opening" | "playing" | "revealed";
 
 const PAMALAYE_DATE = new Date("2026-06-08T16:00:00-07:00");
+const MUSIC_VIDEO_ID = "QJO3ROT-A4E";
 
 function diffToTarget(target: Date): Diff {
   const ms = Math.max(0, target.getTime() - Date.now());
@@ -239,7 +241,7 @@ type Petal = {
   scale: number;
 };
 
-export default function Pamalaye() {
+function PamalayeContent() {
   // petals must be generated client-only — Math.random() would hydration-mismatch
   const [drift, setDrift] = useState<Petal[]>([]);
   useEffect(() => {
@@ -465,6 +467,173 @@ export default function Pamalaye() {
           June 8, 2026 &middot; Ermita, Poblacion, Pamplona, Negros Oriental
         </p>
       </footer>
+    </div>
+  );
+}
+
+export default function Pamalaye() {
+  const [stage, setStage] = useState<Stage>("sealed");
+  const [musicPlaying, setMusicPlaying] = useState(false);
+  const [vinylVanished, setVinylVanished] = useState(false);
+
+  const canOpenEnvelope = stage === "sealed";
+  const isEnvelopeOpening = stage === "opening" || stage === "playing";
+  const isEnvelopePlaying = stage === "playing";
+  const isEnvelopeRevealed = stage === "revealed";
+  const canPlayVinyl = stage === "opening";
+
+  // lock scroll until the envelope is opened
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.documentElement.classList.toggle("site-open", isEnvelopeRevealed);
+    document.body.style.overflow = isEnvelopeRevealed ? "" : "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isEnvelopeRevealed]);
+
+  function openEnvelope() {
+    if (!canOpenEnvelope) return;
+    setStage("opening");
+  }
+
+  function playVinyl() {
+    if (!canPlayVinyl) return;
+    setMusicPlaying(true);
+    setStage("playing");
+    // vinyl sparkles + dissolves at 1.3s, the pamalaye page reveals shortly after
+    window.setTimeout(() => setVinylVanished(true), 1300);
+    window.setTimeout(() => setStage("revealed"), 2600);
+  }
+
+  return (
+    <div className={`invitation-page pamalaye-invitation-shell ${isEnvelopeRevealed ? "is-open" : ""}`}>
+      <div className="paper-grain" aria-hidden="true" />
+
+      <section
+        className={`envelope-scene ${isEnvelopeOpening ? "is-opening" : ""} ${isEnvelopePlaying ? "is-playing" : ""} ${isEnvelopeRevealed ? "is-revealed" : ""}`}
+        aria-label="Sealed envelope — tap the wax to open"
+      >
+        <div className="envelope">
+          <div className="envelope-body">
+            <div className="envelope-letter">
+              <span className="envelope-letter-ornament" aria-hidden="true">❦</span>
+              <p className="envelope-letter-line">A quiet word, house to house</p>
+
+              <button
+                type="button"
+                className={`envelope-vinyl ${isEnvelopePlaying ? "is-spinning" : ""} ${vinylVanished ? "is-vanished" : ""}`}
+                onClick={playVinyl}
+                disabled={!canPlayVinyl}
+                aria-label="Drop the needle — play the kundiman"
+              >
+                <span className="vinyl-sparkles" aria-hidden="true">
+                  {Array.from({ length: 14 }).map((_, i) => (
+                    <span
+                      key={i}
+                      className="vinyl-sparkle"
+                      style={{ "--i": i, "--n": 14 } as React.CSSProperties}
+                    />
+                  ))}
+                </span>
+                <svg className="vinyl-svg" viewBox="0 0 200 200" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="pam-vinyl-gloss" cx="35%" cy="28%" r="55%">
+                      <stop offset="0%" stopColor="rgba(255,255,255,0.35)" />
+                      <stop offset="60%" stopColor="rgba(255,255,255,0)" />
+                    </radialGradient>
+                    <radialGradient id="pam-vinyl-body" cx="50%" cy="50%" r="55%">
+                      <stop offset="0%" stopColor="#1a1a1a" />
+                      <stop offset="80%" stopColor="#0a0a0a" />
+                      <stop offset="100%" stopColor="#000" />
+                    </radialGradient>
+                  </defs>
+                  <circle cx="100" cy="100" r="98" fill="url(#pam-vinyl-body)" />
+                  {[93, 86, 79, 72, 65, 58, 51, 46].map((r) => (
+                    <circle
+                      key={r}
+                      cx="100"
+                      cy="100"
+                      r={r}
+                      fill="none"
+                      stroke="#2a2a2a"
+                      strokeOpacity="0.55"
+                      strokeWidth="0.35"
+                    />
+                  ))}
+                  <circle cx="100" cy="100" r="40" fill="#a0341a" />
+                  <circle cx="100" cy="100" r="40" fill="none" stroke="#55000f" strokeWidth="0.8" />
+                  <g className="vinyl-label-text" fill="#fbf1dc">
+                    <text x="100" y="90" textAnchor="middle" fontSize="6.4" fontFamily="serif" fontStyle="italic" letterSpacing="0.4">
+                      little things
+                    </text>
+                    <text x="100" y="100" textAnchor="middle" fontSize="3" letterSpacing="1.6">
+                      ♡ · ♡ · ♡
+                    </text>
+                    <text x="100" y="112" textAnchor="middle" fontSize="3.2" letterSpacing="0.8">
+                      ONE DIRECTION
+                    </text>
+                  </g>
+                  <circle cx="100" cy="100" r="2.2" fill="#1a0810" />
+                  <circle cx="100" cy="100" r="98" fill="url(#pam-vinyl-gloss)" />
+                </svg>
+                <span className="vinyl-needle" aria-hidden="true">
+                  <span className="vinyl-needle-arm" />
+                  <span className="vinyl-needle-head" />
+                </span>
+              </button>
+
+              <p className="envelope-letter-sub" aria-hidden="true">
+                {canPlayVinyl
+                  ? "tap the record — play the kundiman"
+                  : isEnvelopePlaying
+                    ? "now playing ♫"
+                    : "balay · balay"}
+              </p>
+            </div>
+            <div className="envelope-pocket" aria-hidden="true" />
+            <div className="envelope-flap" aria-hidden="true">
+              <span className="envelope-flap-liner" />
+            </div>
+            <button
+              type="button"
+              className="wax-crest"
+              onClick={openEnvelope}
+              disabled={!canOpenEnvelope}
+              aria-label="Break the seal to open the pamalaye"
+            >
+              <span className="wax-crest-ring" aria-hidden="true" />
+              <span className="wax-crest-monogram">
+                <em>G</em>
+                <i>&amp;</i>
+                <em>V</em>
+              </span>
+            </button>
+          </div>
+        </div>
+        <p className="envelope-caption">
+          {canOpenEnvelope ? "tap the wax seal" : canPlayVinyl ? "drop the needle" : ""}
+        </p>
+      </section>
+
+      {musicPlaying && (
+        <iframe
+          className="music-iframe"
+          src={`https://www.youtube.com/embed/${MUSIC_VIDEO_ID}?autoplay=1&controls=0&modestbranding=1&playsinline=1&rel=0&loop=1&playlist=${MUSIC_VIDEO_ID}`}
+          allow="autoplay; encrypted-media"
+          title="Pamalaye · kundiman"
+          aria-hidden="true"
+        />
+      )}
+
+      {stage !== "sealed" && (
+        <main
+          className={`wedding-site pamalaye-site ${isEnvelopeRevealed ? "is-visible" : ""}`}
+          aria-hidden={isEnvelopeRevealed ? undefined : true}
+        >
+          <PamalayeContent />
+        </main>
+      )}
     </div>
   );
 }
