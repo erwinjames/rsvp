@@ -3845,18 +3845,24 @@ html.site-open .paper-grain {
 .wax-crest-anchor-seal {
   position: relative;
   z-index: 1;
+  width: 72%;
+  height: 72%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.18em;
+  justify-content: center;
+  gap: 0.14em;
   color: var(--cream);
-  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.35));
+  filter:
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55))
+    drop-shadow(0 0 1px rgba(255, 235, 210, 0.35));
 }
 
 .wax-crest-anchor {
-  width: 52%;
+  width: 78%;
   height: auto;
   display: block;
+  overflow: visible;
 }
 
 .wax-crest-anchor path,
@@ -3870,6 +3876,7 @@ html.site-open .paper-grain {
 
 .wax-crest-anchor .wax-anchor-fluke {
   fill: currentColor;
+  stroke: currentColor;
   stroke-width: 1.2;
 }
 
@@ -3877,11 +3884,12 @@ html.site-open .paper-grain {
   font-family: var(--font-display), serif;
   font-variation-settings: "opsz" 144, "SOFT" 50;
   font-weight: 700;
-  font-size: clamp(0.58rem, 1vw, 0.72rem);
-  letter-spacing: 0.28em;
+  font-size: clamp(0.5rem, 0.95vw, 0.62rem);
+  letter-spacing: 0.32em;
   text-transform: uppercase;
-  opacity: 0.92;
+  opacity: 0.95;
   line-height: 1;
+  margin-top: 0.18em;
 }
 
 /* paper grain + woven piña texture */
