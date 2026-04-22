@@ -4,7 +4,10 @@ import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, hasRequiredConfig } from "@/lib/firebase";
 
-type Stage = "sealed" | "opening" | "revealed";
+type Stage = "sealed" | "opening" | "playing" | "revealed";
+
+// YouTube video id for "Little Things — One Direction". Swap if needed.
+const MUSIC_VIDEO_ID = "QJO3ROT-A4E";
 
 function OliveCrest({ className = "" }: { className?: string }) {
   return (
@@ -71,6 +74,9 @@ function Sprig({ className = "" }: { className?: string }) {
 
 const HERO_IMG     = "https://images.unsplash.com/photo-1529634597503-139d3726fed5?auto=format&fit=crop&w=1800&q=80";
 const VENUE_IMG    = "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1400&q=80";
+
+// Transparent-PNG corner decoration (rose & flourish cluster).
+const CORNER_BOUQUET_IMG = "/flower.png";
 
 const STORY_POLAROIDS: Array<{ src: string; caption: string; year: string }> = [
   { src: "https://images.unsplash.com/photo-1525772764200-be829a350797?auto=format&fit=crop&w=700&q=80", caption: "under the umbrella",    year: "MMXIV" },
@@ -442,13 +448,17 @@ export default function Home() {
   const [submitState, setSubmitState] = useState<"idle" | "saving" | "success" | "error">("idle");
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [musicPlaying, setMusicPlaying] = useState(false);
+  const [vinylVanished, setVinylVanished] = useState(false);
 
   const heroImgRef = useRef<HTMLImageElement | null>(null);
   const heroCrestRef = useRef<HTMLDivElement | null>(null);
 
   const canOpenEnvelope = stage === "sealed";
-  const isEnvelopeOpening = stage === "opening";
+  const isEnvelopeOpening = stage === "opening" || stage === "playing";
+  const isEnvelopePlaying = stage === "playing";
   const isEnvelopeRevealed = stage === "revealed";
+  const canPlayVinyl = stage === "opening";
   const siteAriaHidden = useMemo(
     () => (isEnvelopeRevealed ? undefined : true),
     [isEnvelopeRevealed],
@@ -508,7 +518,15 @@ export default function Home() {
   function openEnvelope() {
     if (!canOpenEnvelope) return;
     setStage("opening");
-    window.setTimeout(() => setStage("revealed"), 1700);
+  }
+
+  function playVinyl() {
+    if (!canPlayVinyl) return;
+    setMusicPlaying(true);
+    setStage("playing");
+    // vinyl dissolves with sparkles at ~1.3s, site reveals shortly after
+    window.setTimeout(() => setVinylVanished(true), 1300);
+    window.setTimeout(() => setStage("revealed"), 2600);
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -558,16 +576,88 @@ export default function Home() {
       {/* ─── sealed envelope ─────────────────────────────────── */}
       <section
         className={`envelope-scene ${isEnvelopeOpening ? "is-opening" : ""} ${
-          isEnvelopeRevealed ? "is-revealed" : ""
-        }`}
+          isEnvelopePlaying ? "is-playing" : ""
+        } ${isEnvelopeRevealed ? "is-revealed" : ""}`}
         aria-label="Sealed envelope — tap the wax to open"
       >
         <div className="envelope">
           <div className="envelope-body">
-            <div className="envelope-letter" aria-hidden="true">
-              <span className="envelope-letter-ornament">❦</span>
+            <div className="envelope-letter">
+              <span className="envelope-letter-ornament" aria-hidden="true">❦</span>
               <p className="envelope-letter-line">For the ones we love most</p>
-              <p className="envelope-letter-sub">a small letter enclosed</p>
+
+              <button
+                type="button"
+                className={`envelope-vinyl ${isEnvelopePlaying ? "is-spinning" : ""} ${
+                  vinylVanished ? "is-vanished" : ""
+                }`}
+                onClick={playVinyl}
+                disabled={!canPlayVinyl}
+                aria-label="Drop the needle — play our song"
+              >
+                <span className="vinyl-sparkles" aria-hidden="true">
+                  {Array.from({ length: 14 }).map((_, i) => (
+                    <span
+                      key={i}
+                      className="vinyl-sparkle"
+                      style={{ "--i": i, "--n": 14 } as React.CSSProperties}
+                    />
+                  ))}
+                </span>
+                <svg className="vinyl-svg" viewBox="0 0 200 200" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="vinyl-gloss" cx="35%" cy="28%" r="55%">
+                      <stop offset="0%" stopColor="rgba(255,255,255,0.35)" />
+                      <stop offset="60%" stopColor="rgba(255,255,255,0)" />
+                    </radialGradient>
+                    <radialGradient id="vinyl-body" cx="50%" cy="50%" r="55%">
+                      <stop offset="0%" stopColor="#1a1a1a" />
+                      <stop offset="80%" stopColor="#0a0a0a" />
+                      <stop offset="100%" stopColor="#000" />
+                    </radialGradient>
+                  </defs>
+                  <circle cx="100" cy="100" r="98" fill="url(#vinyl-body)" />
+                  {[93, 86, 79, 72, 65, 58, 51, 46].map((r) => (
+                    <circle
+                      key={r}
+                      cx="100"
+                      cy="100"
+                      r={r}
+                      fill="none"
+                      stroke="#2a2a2a"
+                      strokeOpacity="0.55"
+                      strokeWidth="0.35"
+                    />
+                  ))}
+                  <circle cx="100" cy="100" r="40" fill="#c41e3a" />
+                  <circle cx="100" cy="100" r="40" fill="none" stroke="#7a0d1e" strokeWidth="0.8" />
+                  <g className="vinyl-label-text" fill="#fbf1dc">
+                    <text x="100" y="90" textAnchor="middle" fontSize="6.4" fontFamily="serif" fontStyle="italic" letterSpacing="0.4">
+                      little things
+                    </text>
+                    <text x="100" y="100" textAnchor="middle" fontSize="3" letterSpacing="1.6">
+                      ♡ · ♡ · ♡
+                    </text>
+                    <text x="100" y="112" textAnchor="middle" fontSize="3.2" letterSpacing="0.8">
+                      ONE DIRECTION
+                    </text>
+                  </g>
+                  <circle cx="100" cy="100" r="2.2" fill="#1a0810" />
+                  <circle cx="100" cy="100" r="98" fill="url(#vinyl-gloss)" />
+                </svg>
+                <span className="vinyl-needle" aria-hidden="true">
+                  <span className="vinyl-needle-arm" />
+                  <span className="vinyl-needle-head" />
+                </span>
+              </button>
+
+              <p className="envelope-letter-sub" aria-hidden="true">
+                {canPlayVinyl
+                  ? "tap the record — play our song"
+                  : isEnvelopePlaying
+                    ? "now playing ♫"
+                    : "a small letter enclosed"}
+              </p>
             </div>
             <div className="envelope-pocket" aria-hidden="true" />
             <div className="envelope-flap" aria-hidden="true">
@@ -589,8 +679,21 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <p className="envelope-caption">tap the wax seal</p>
+        <p className="envelope-caption">
+          {canOpenEnvelope ? "tap the wax seal" : canPlayVinyl ? "drop the needle" : ""}
+        </p>
       </section>
+
+      {/* hidden music iframe — persists across stages once started */}
+      {musicPlaying && (
+        <iframe
+          className="music-iframe"
+          src={`https://www.youtube.com/embed/${MUSIC_VIDEO_ID}?autoplay=1&controls=0&modestbranding=1&playsinline=1&rel=0&loop=1&playlist=${MUSIC_VIDEO_ID}`}
+          allow="autoplay; encrypted-media"
+          title="Little Things — One Direction"
+          aria-hidden="true"
+        />
+      )}
 
       {/* ─── full-page wedding site (mounted only after tap) ──── */}
       {stage !== "sealed" && (
@@ -604,6 +707,27 @@ export default function Home() {
           </div>
 
           <Petals />
+
+          <div
+            className="hero-bouquet hero-bouquet-tl"
+            style={{ backgroundImage: `url("${CORNER_BOUQUET_IMG}")` } as React.CSSProperties}
+            aria-hidden="true"
+          />
+          <div
+            className="hero-bouquet hero-bouquet-tr"
+            style={{ backgroundImage: `url("${CORNER_BOUQUET_IMG}")` } as React.CSSProperties}
+            aria-hidden="true"
+          />
+          <div
+            className="hero-bouquet hero-bouquet-bl"
+            style={{ backgroundImage: `url("${CORNER_BOUQUET_IMG}")` } as React.CSSProperties}
+            aria-hidden="true"
+          />
+          <div
+            className="hero-bouquet hero-bouquet-br"
+            style={{ backgroundImage: `url("${CORNER_BOUQUET_IMG}")` } as React.CSSProperties}
+            aria-hidden="true"
+          />
 
           <aside className="date-strip" aria-hidden="true">
             <span className="date-strip-year">MMXXVI</span>

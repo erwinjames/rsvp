@@ -162,13 +162,17 @@ html.site-open .paper-grain {
     0 6px 14px rgba(80, 55, 20, 0.22),
     inset 0 1px 0 rgba(255, 250, 230, 0.8);
   display: grid;
-  place-items: center;
+  grid-auto-rows: min-content;
+  place-content: center;
+  justify-items: center;
+  gap: 0.25rem;
   text-align: center;
-  padding: 0.6rem 1rem;
+  padding: 0.8rem 1rem;
   color: var(--ink-soft);
   z-index: 1;
   transform: translateY(0) rotate(0deg);
   transition: transform 950ms cubic-bezier(0.22, 0.78, 0.2, 1);
+  overflow: visible;
 }
 
 .envelope-letter-ornament {
@@ -195,6 +199,189 @@ html.site-open .paper-grain {
   letter-spacing: 0.36em;
   text-transform: uppercase;
   color: var(--ink-mute);
+}
+
+/* ─── Vinyl record on the letter ─────────────────────────── */
+
+.envelope-vinyl {
+  position: relative;
+  width: clamp(120px, 20vw, 170px);
+  aspect-ratio: 1 / 1;
+  margin: 0.35rem 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: scale(0.6) rotate(-14deg);
+  transition:
+    opacity 900ms ease 1100ms,
+    transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1) 1000ms,
+    filter 400ms ease;
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.35));
+}
+
+.envelope-scene.is-opening .envelope-vinyl {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.envelope-vinyl:hover:not(:disabled) {
+  filter:
+    drop-shadow(0 14px 22px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 20px rgba(201, 163, 79, 0.45));
+}
+
+.envelope-vinyl:focus-visible {
+  outline: 2px solid var(--gilt);
+  outline-offset: 6px;
+  border-radius: 50%;
+}
+
+.envelope-vinyl:disabled {
+  cursor: default;
+}
+
+.vinyl-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  animation: vinyl-idle-wobble 5s ease-in-out infinite;
+  transform-origin: 50% 50%;
+  transition: animation 0s;
+}
+
+/* idle subtle wobble */
+@keyframes vinyl-idle-wobble {
+  0%, 100% { transform: rotate(-2deg); }
+  50%      { transform: rotate(2deg); }
+}
+
+.envelope-vinyl:hover:not(:disabled) .vinyl-svg {
+  animation: vinyl-hover-spin 6s linear infinite;
+}
+@keyframes vinyl-hover-spin {
+  to { transform: rotate(360deg); }
+}
+
+.envelope-vinyl.is-spinning .vinyl-svg {
+  animation: vinyl-fast-spin 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes vinyl-fast-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* tonearm / needle that swings in when playing */
+.vinyl-needle {
+  position: absolute;
+  top: 4%;
+  right: -6%;
+  width: 46%;
+  height: 46%;
+  transform-origin: top right;
+  transform: rotate(-60deg) scale(0.9);
+  opacity: 0;
+  transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1), opacity 400ms ease;
+  pointer-events: none;
+}
+
+.envelope-vinyl.is-spinning .vinyl-needle {
+  opacity: 1;
+  transform: rotate(-18deg) scale(1);
+}
+
+.vinyl-needle-arm {
+  position: absolute;
+  top: 6%;
+  right: 6%;
+  width: 70%;
+  height: 8%;
+  background: linear-gradient(180deg, #d9c298, #8c6f3d 60%, #5a4222);
+  border-radius: 6px;
+  box-shadow:
+    0 1px 0 rgba(255, 240, 210, 0.35) inset,
+    0 2px 4px rgba(0, 0, 0, 0.4);
+  transform: rotate(16deg);
+  transform-origin: right center;
+}
+
+.vinyl-needle-head {
+  position: absolute;
+  bottom: 22%;
+  left: 22%;
+  width: 14%;
+  height: 14%;
+  background: radial-gradient(circle at 30% 30%, #f1dca4, #7a5a2a 70%, #3a2810);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* magic dissolve */
+.envelope-vinyl.is-vanished {
+  pointer-events: none;
+}
+
+.envelope-vinyl.is-vanished .vinyl-svg,
+.envelope-vinyl.is-vanished .vinyl-needle {
+  animation: vinyl-dissolve 1200ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes vinyl-dissolve {
+  0%   { transform: rotate(0deg) scale(1); opacity: 1; filter: blur(0); }
+  30%  { transform: rotate(180deg) scale(1.08); opacity: 0.95; }
+  100% { transform: rotate(540deg) scale(0.2); opacity: 0; filter: blur(8px); }
+}
+
+/* sparkle burst */
+.vinyl-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.vinyl-sparkle {
+  --angle: calc((var(--i) / var(--n)) * 360deg);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: radial-gradient(circle, #fff6d8 0%, var(--gilt) 60%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transform: rotate(var(--angle)) translateX(0) scale(0.4);
+  transform-origin: center;
+  box-shadow:
+    0 0 6px rgba(255, 230, 180, 0.9),
+    0 0 14px rgba(201, 163, 79, 0.6);
+}
+
+.envelope-vinyl.is-vanished .vinyl-sparkle {
+  animation: sparkle-burst 1200ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  animation-delay: calc(var(--i) * 25ms);
+}
+
+@keyframes sparkle-burst {
+  0%   { opacity: 0; transform: rotate(var(--angle)) translateX(0) scale(0.3); }
+  20%  { opacity: 1; transform: rotate(var(--angle)) translateX(20px) scale(1.2); }
+  60%  { opacity: 1; transform: rotate(var(--angle)) translateX(110px) scale(0.8); }
+  100% { opacity: 0; transform: rotate(var(--angle)) translateX(150px) scale(0); }
+}
+
+/* hidden audio iframe */
+.music-iframe {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  border: 0;
+  bottom: -10px;
+  right: -10px;
+  z-index: -1;
 }
 
 .envelope-pocket {
@@ -375,7 +562,7 @@ html.site-open .paper-grain {
 }
 
 .envelope-scene.is-opening .envelope-letter {
-  transform: translateY(-115%) scale(1.06) rotate(-0.8deg);
+  transform: translateY(-32%);
   transition:
     transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1) 500ms,
     box-shadow 900ms ease 500ms;
@@ -386,11 +573,20 @@ html.site-open .paper-grain {
   z-index: 5;
 }
 
+.envelope-scene.is-playing .envelope-letter {
+  transform: translateY(-115%);
+  transition: transform 1300ms cubic-bezier(0.4, 0, 0.2, 1) 1100ms;
+}
+
 .envelope-scene.is-opening .envelope-body {
   transition: transform 900ms cubic-bezier(0.4, 0, 0.2, 1) 900ms,
               filter 900ms ease 900ms;
-  transform: translateY(14px) scale(0.96);
-  filter: brightness(0.88) blur(1.5px);
+  transform: translateY(14px);
+}
+
+.envelope-scene.is-playing .envelope-body {
+  transition: transform 900ms ease 800ms, filter 900ms ease 800ms;
+  filter: brightness(0.85) blur(1.5px);
 }
 
 .envelope-scene.is-opening .envelope-pocket {
@@ -486,6 +682,66 @@ html.site-open .paper-grain {
     radial-gradient(ellipse at 50% 40%, rgba(42, 14, 19, 0.2) 0%, rgba(25, 6, 13, 0.6) 60%, rgba(15, 3, 8, 0.85) 100%),
     linear-gradient(180deg, rgba(61, 10, 20, 0.3) 0%, rgba(15, 3, 8, 0.6) 100%);
   pointer-events: none;
+}
+
+/* ─── Editorial Autumn Botanical — photographic corner vignettes ───
+   Real bouquet photo revealed through a soft radial alpha mask so the
+   bloom "grows" from the corner and dissolves organically into the hero.
+   Color-graded with filter() to match the burgundy/terracotta palette. */
+
+.hero-bouquet {
+  position: absolute;
+  /* PNG native aspect is 970×824 ≈ 1.177 */
+  width:  clamp(150px, 22vw, 320px);
+  aspect-ratio: 970 / 824;
+  pointer-events: none;
+  z-index: 2;
+
+  background-image: inherit; /* set inline per-element */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Pull the clipart-red into the site's burgundy palette and bind the PNG
+     to the underlying hero photo so it reads as a vintage pressed print,
+     not a sticker. */
+  filter:
+    sepia(0.18)
+    saturate(0.82)
+    hue-rotate(-6deg)
+    brightness(0.86)
+    contrast(1.04)
+    drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55));
+  mix-blend-mode: multiply;
+
+  /* entrance — independent `scale` property composes cleanly with each
+     corner's static `transform` flip */
+  opacity: 0;
+  scale: 0.94;
+  animation: bouquet-enter 1600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes bouquet-enter {
+  0%   { opacity: 0;    scale: 0.94; }
+  100% { opacity: 0.95; scale: 1; }
+}
+
+/* The PNG is composed with its rose cluster at the BOTTOM-LEFT of the image.
+   Flips below place the cluster into each true corner of the hero. */
+.hero-bouquet-tl { top: 0;    left: 0;  transform: scaleY(-1);     animation-delay: 300ms; }
+.hero-bouquet-tr { top: 0;    right: 0; transform: scale(-1, -1);  animation-delay: 450ms; }
+.hero-bouquet-bl { bottom: 0; left: 0;                             animation-delay: 600ms; }
+.hero-bouquet-br { bottom: 0; right: 0; transform: scaleX(-1);     animation-delay: 750ms; }
+
+@media (max-width: 640px) {
+  .hero-bouquet { width: clamp(110px, 32vw, 190px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bouquet {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 @keyframes ken-burns {
