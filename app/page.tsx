@@ -74,24 +74,24 @@ function Sprig({ className = "" }: { className?: string }) {
   );
 }
 
-const HERO_IMG     = "https://images.unsplash.com/photo-1529634597503-139d3726fed5?auto=format&fit=crop&w=1800&q=80";
-const VENUE_IMG    = "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1400&q=80";
+const HERO_IMG = "https://images.unsplash.com/photo-1529634597503-139d3726fed5?auto=format&fit=crop&w=1800&q=80";
+const VENUE_IMG = "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1400&q=80";
 
 // Transparent-PNG corner decoration (rose & flourish cluster).
 const CORNER_BOUQUET_IMG = "/flower.png";
 
 const STORY_POLAROIDS: Array<{ src: string; caption: string; year: string }> = [
-  { src: "https://images.unsplash.com/photo-1525772764200-be829a350797?auto=format&fit=crop&w=700&q=80", caption: "under the umbrella",    year: "MMXIV" },
-  { src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80", caption: "a long walk home",      year: "MMXVII" },
+  { src: "https://images.unsplash.com/photo-1525772764200-be829a350797?auto=format&fit=crop&w=700&q=80", caption: "under the umbrella", year: "MMXIV" },
+  { src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80", caption: "a long walk home", year: "MMXVII" },
   { src: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=700&q=80", caption: "the small, small things", year: "MMXXIII" },
 ];
 const GALLERY_IMGS: Array<{ src: string; alt: string; span?: string }> = [
-  { src: "https://images.unsplash.com/photo-1525772764200-be829a350797?auto=format&fit=crop&w=900&q=80",   alt: "A bouquet on a wooden bench", span: "tall" },
-  { src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1100&q=80",  alt: "A wedding arch at golden hour" },
-  { src: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=900&q=80",   alt: "A couple walking hand in hand" },
-  { src: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1100&q=80",  alt: "Candlelit reception tables", span: "wide" },
-  { src: "https://images.unsplash.com/photo-1478146059778-26028b07395a?auto=format&fit=crop&w=800&q=80",   alt: "Two wedding rings on linen" },
-  { src: "https://images.unsplash.com/photo-1460978812857-470ed1c77af0?auto=format&fit=crop&w=1000&q=80",  alt: "A field of wildflowers", span: "tall" },
+  { src: "https://images.unsplash.com/photo-1525772764200-be829a350797?auto=format&fit=crop&w=900&q=80", alt: "A bouquet on a wooden bench", span: "tall" },
+  { src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1100&q=80", alt: "A wedding arch at golden hour" },
+  { src: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=900&q=80", alt: "A couple walking hand in hand" },
+  { src: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1100&q=80", alt: "Candlelit reception tables", span: "wide" },
+  { src: "https://images.unsplash.com/photo-1478146059778-26028b07395a?auto=format&fit=crop&w=800&q=80", alt: "Two wedding rings on linen" },
+  { src: "https://images.unsplash.com/photo-1460978812857-470ed1c77af0?auto=format&fit=crop&w=1000&q=80", alt: "A field of wildflowers", span: "tall" },
 ];
 
 const WEDDING_DATE = new Date("2026-10-17T17:30:00-07:00");
@@ -435,7 +435,7 @@ function StorySection() {
           <p className="story-v2-signoff">
             — with love,
             <br />
-            <span className="story-signoff-names">Elena &amp; Lucas</span>
+            <span className="story-signoff-names">Grasya &amp; Valian</span>
           </p>
         </div>
       </div>
@@ -511,7 +511,7 @@ export default function Home() {
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") setLightboxIdx(null);
       if (e.key === "ArrowRight") setLightboxIdx((i) => (i === null ? null : (i + 1) % GALLERY_IMGS.length));
-      if (e.key === "ArrowLeft")  setLightboxIdx((i) => (i === null ? null : (i - 1 + GALLERY_IMGS.length) % GALLERY_IMGS.length));
+      if (e.key === "ArrowLeft") setLightboxIdx((i) => (i === null ? null : (i - 1 + GALLERY_IMGS.length) % GALLERY_IMGS.length));
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -611,9 +611,8 @@ export default function Home() {
 
       {/* ─── sealed envelope ─────────────────────────────────── */}
       <section
-        className={`envelope-scene ${isEnvelopeOpening ? "is-opening" : ""} ${
-          isEnvelopePlaying ? "is-playing" : ""
-        } ${isEnvelopeRevealed ? "is-revealed" : ""}`}
+        className={`envelope-scene ${isEnvelopeOpening ? "is-opening" : ""} ${isEnvelopePlaying ? "is-playing" : ""
+          } ${isEnvelopeRevealed ? "is-revealed" : ""}`}
         aria-label="Sealed envelope — tap the wax to open"
       >
         <div className="envelope">
@@ -624,9 +623,8 @@ export default function Home() {
 
               <button
                 type="button"
-                className={`envelope-vinyl ${isEnvelopePlaying ? "is-spinning" : ""} ${
-                  vinylVanished ? "is-vanished" : ""
-                }`}
+                className={`envelope-vinyl ${isEnvelopePlaying ? "is-spinning" : ""} ${vinylVanished ? "is-vanished" : ""
+                  }`}
                 onClick={playVinyl}
                 disabled={!canPlayVinyl}
                 aria-label="Drop the needle — play our song"
@@ -733,370 +731,370 @@ export default function Home() {
 
       {/* ─── full-page wedding site (mounted only after tap) ──── */}
       {stage !== "sealed" && (
-      <main className={`wedding-site ${isEnvelopeRevealed ? "is-visible" : ""}`} aria-hidden={siteAriaHidden}>
-        {/* HERO */}
-        <section className="hero">
-          {/* hero background image — disabled for now, will use later
+        <main className={`wedding-site ${isEnvelopeRevealed ? "is-visible" : ""}`} aria-hidden={siteAriaHidden}>
+          {/* HERO */}
+          <section className="hero">
+            {/* hero background image — disabled for now, will use later
           <div className="hero-image">
             <img ref={heroImgRef} src={HERO_IMG} alt="" decoding="async" />
             <div className="hero-image-wash" aria-hidden="true" />
           </div>
           */}
 
-          <Petals />
+            <Petals />
 
-          <div
-            className="hero-bouquet hero-bouquet-tl"
-            style={{ backgroundImage: `url("${CORNER_BOUQUET_IMG}")` } as React.CSSProperties}
-            aria-hidden="true"
-          />
-          <div
-            className="hero-bouquet hero-bouquet-tr"
-            style={{ backgroundImage: `url("${CORNER_BOUQUET_IMG}")` } as React.CSSProperties}
-            aria-hidden="true"
-          />
-          <div
-            className="hero-bouquet hero-bouquet-bl"
-            style={{ backgroundImage: `url("${CORNER_BOUQUET_IMG}")` } as React.CSSProperties}
-            aria-hidden="true"
-          />
-          <div
-            className="hero-bouquet hero-bouquet-br"
-            style={{ backgroundImage: `url("${CORNER_BOUQUET_IMG}")` } as React.CSSProperties}
-            aria-hidden="true"
-          />
+            <div
+              className="hero-bouquet hero-bouquet-tl"
+              style={{ backgroundImage: `url("${CORNER_BOUQUET_IMG}")` } as React.CSSProperties}
+              aria-hidden="true"
+            />
+            <div
+              className="hero-bouquet hero-bouquet-tr"
+              style={{ backgroundImage: `url("${CORNER_BOUQUET_IMG}")` } as React.CSSProperties}
+              aria-hidden="true"
+            />
+            <div
+              className="hero-bouquet hero-bouquet-bl"
+              style={{ backgroundImage: `url("${CORNER_BOUQUET_IMG}")` } as React.CSSProperties}
+              aria-hidden="true"
+            />
+            <div
+              className="hero-bouquet hero-bouquet-br"
+              style={{ backgroundImage: `url("${CORNER_BOUQUET_IMG}")` } as React.CSSProperties}
+              aria-hidden="true"
+            />
 
-          <aside className="date-strip" aria-hidden="true">
-            <span className="date-strip-year">MMXXVI</span>
-            <span className="date-strip-dot">·</span>
-            <span className="date-strip-month">October</span>
-            <span className="date-strip-day">the seventeenth</span>
-            <span className="date-strip-dot">·</span>
-            <span className="date-strip-place">Larkspur Estate</span>
-          </aside>
+            <aside className="date-strip" aria-hidden="true">
+              <span className="date-strip-year">MMXXVI</span>
+              <span className="date-strip-dot">·</span>
+              <span className="date-strip-month">October</span>
+              <span className="date-strip-day">the seventeenth</span>
+              <span className="date-strip-dot">·</span>
+              <span className="date-strip-place">Larkspur Estate</span>
+            </aside>
 
-          <div className="hero-inner">
-            <p className="hero-eyebrow">
-              <span>Together with their families</span>
-            </p>
+            <div className="hero-inner">
+              <p className="hero-eyebrow">
+                <span>Together with their families</span>
+              </p>
 
-            <div className="hero-crest" ref={heroCrestRef}>
+              <div className="hero-crest" ref={heroCrestRef}>
+                <OliveCrest />
+              </div>
+
+              <h1 className="names">
+                <span className="name-line">Grasya</span>
+                <span className="ampersand" aria-hidden="true">&amp;</span>
+                <span className="sr-only"> and </span>
+                <span className="name-line name-line-right">Valian</span>
+              </h1>
+
+              <svg
+                className="names-swash"
+                viewBox="0 0 380 40"
+                aria-hidden="true"
+                role="presentation"
+              >
+                <path d="M 8 28 C 60 10, 130 36, 190 22 S 320 10, 372 28" />
+                <circle className="swash-dot" cx="4" cy="29" />
+                <circle className="swash-dot" cx="376" cy="29" />
+              </svg>
+
+              <p className="hero-date">
+                Saturday · October seventeenth · Two thousand twenty-six
+              </p>
+              <p className="hero-venue">The Gilded Conservatory — Larkspur Estate</p>
+
+              <Countdown target={WEDDING_DATE} />
+
+              <a className="scroll-cue" href="#story" aria-label="Scroll to our story">
+                <span>scroll</span>
+                <span className="scroll-cue-line" aria-hidden="true" />
+              </a>
+            </div>
+          </section>
+
+          {/* STORY */}
+          <StorySection />
+
+          {/* TIMELINE */}
+          <Revealable className="timeline-section">
+            <header className="section-header">
+              <p className="section-label">The day</p>
+              <h2 className="section-heading">
+                A slow evening <em>of candlelight.</em>
+              </h2>
+              <Sprig className="section-sprig" />
+            </header>
+
+            <ol className="timeline">
+              <li className="timeline-item">
+                <p className="timeline-time">4:30 pm</p>
+                <p className="timeline-label">Arrival</p>
+                <h3>A welcome drink</h3>
+                <p className="timeline-body">
+                  Find your seat in the olive grove. Something cold, something sparkling.
+                </p>
+              </li>
+              <li className="timeline-item">
+                <p className="timeline-time">5:30 pm</p>
+                <p className="timeline-label">The ceremony</p>
+                <h3>Golden-hour vows</h3>
+                <p className="timeline-body">
+                  Garden aisle · a small quartet · thirty minutes that will change
+                  everything, and nothing.
+                </p>
+              </li>
+              <li className="timeline-item">
+                <p className="timeline-time">7:00 pm</p>
+                <p className="timeline-label">Reception</p>
+                <h3>Candlelit supper</h3>
+                <p className="timeline-body">
+                  A long table under the glass atrium. Speeches that will make you cry.
+                  Dancing that will make you forget to.
+                </p>
+              </li>
+              <li className="timeline-item">
+                <p className="timeline-time">11:30 pm</p>
+                <p className="timeline-label">Afterglow</p>
+                <h3>Pastries &amp; a last dance</h3>
+                <p className="timeline-body">
+                  Espresso, small sweets, and one quiet slow song before lanterns lead
+                  you back through the grove.
+                </p>
+              </li>
+            </ol>
+          </Revealable>
+
+          {/* GALLERY */}
+          <Revealable className="gallery-section">
+            <header className="section-header">
+              <p className="section-label">Moments</p>
+              <h2 className="section-heading">
+                Ten years <em>of Sundays.</em>
+              </h2>
+            </header>
+
+            <div className="gallery-grid">
+              {GALLERY_IMGS.map((img, i) => (
+                <figure
+                  key={img.src}
+                  className={`gallery-item ${img.span ? `is-${img.span}` : ""}`}
+                  style={{ "--i": i } as React.CSSProperties}
+                  onClick={() => setLightboxIdx(i)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setLightboxIdx(i);
+                    }
+                  }}
+                  aria-label={`Expand photo: ${img.alt}`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={img.src} alt={img.alt} loading="lazy" />
+                  <span className="gallery-expand" aria-hidden="true">+</span>
+                </figure>
+              ))}
+            </div>
+          </Revealable>
+
+          {/* VENUE + DETAILS */}
+          <Revealable className="venue-section">
+            <div className="venue-image">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={VENUE_IMG} alt="" />
+            </div>
+            <div className="venue-text">
+              <p className="section-label">The venue</p>
+              <h2 className="section-heading">
+                A glass atrium <em>in the olive grove.</em>
+              </h2>
+              <p className="venue-address">
+                Larkspur Estate · 47 Conservatory Lane
+                <br />
+                Larkspur, California
+              </p>
+
+              <div className="details-grid">
+                <article className="detail-card">
+                  <p className="detail-kicker">Stay the night</p>
+                  <h3>The Larkspur Inn</h3>
+                  <p>
+                    A small block of rooms is held under our names until the first of
+                    September. Mention the wedding when booking.
+                  </p>
+                </article>
+                <article className="detail-card">
+                  <p className="detail-kicker">Attire</p>
+                  <h3>Black-tie optional</h3>
+                  <p>
+                    We want you comfortable. Long dresses, suits, soft florals — and
+                    shoes that will carry you through the dance floor.
+                  </p>
+                </article>
+                <article className="detail-card">
+                  <p className="detail-kicker">Getting there</p>
+                  <h3>A short drive north</h3>
+                  <p>
+                    Forty minutes from the city. Valet parking will be open from four
+                    o&apos;clock. A late-night shuttle returns at midnight.
+                  </p>
+                </article>
+              </div>
+            </div>
+          </Revealable>
+
+          {/* RSVP */}
+          <Revealable as="section" className="rsvp-section" id="rsvp">
+            <header className="section-header">
+              <p className="section-label">RSVP</p>
+              <h2 className="section-heading">
+                Kindly reply <em>by the first of September.</em>
+              </h2>
+              <p className="rsvp-instruction">
+                A note, a song, a toast — anything you leave below reaches us directly.
+              </p>
+            </header>
+
+            <form className="rsvp-form" onSubmit={handleSubmit}>
+              <div className="field field-wide">
+                <label htmlFor="name">Your name, in full</label>
+                <input id="name" name="name" type="text" autoComplete="name" required />
+              </div>
+
+              <fieldset className="field field-wide attendance">
+                <legend>Will you join us?</legend>
+                <label className="choice">
+                  <input type="radio" name="attendance" value="yes" required />
+                  <span className="choice-body">
+                    <span className="choice-title">Joyfully</span>
+                    <span className="choice-sub">I wouldn&apos;t miss it</span>
+                  </span>
+                </label>
+                <label className="choice">
+                  <input type="radio" name="attendance" value="no" required />
+                  <span className="choice-body">
+                    <span className="choice-title">Regretfully</span>
+                    <span className="choice-sub">Sending love from afar</span>
+                  </span>
+                </label>
+              </fieldset>
+
+              <div className="field">
+                <label htmlFor="guests">Seated with me</label>
+                <select id="guests" name="guests" defaultValue="1">
+                  <option value="1">Just myself</option>
+                  <option value="2">Two of us</option>
+                  <option value="3">A party of three</option>
+                  <option value="4">A party of four</option>
+                </select>
+              </div>
+
+              <div className="field">
+                <label htmlFor="song">A song, a toast, a wish</label>
+                <input id="song" name="song" type="text" placeholder="optional" />
+              </div>
+
+              <div className="field field-wide">
+                <label htmlFor="note">A message for the couple</label>
+                <textarea
+                  id="note"
+                  name="note"
+                  rows={4}
+                  placeholder="Tell us anything at all — we will read it twice."
+                />
+              </div>
+
+              <button type="submit" className="submit-btn" disabled={submitState === "saving"}>
+                <span>{submitState === "saving" ? "Sending..." : "Seal & send"}</span>
+                <span className="submit-btn-sprig" aria-hidden="true">❦</span>
+              </button>
+            </form>
+
+            {submittedName && submitState === "success" && submitMessage ? (
+              <p className="submit-feedback" role="status">
+                Thank you, {submittedName}. {submitMessage}
+              </p>
+            ) : null}
+
+            {submitState === "error" && submitMessage ? (
+              <p className="submit-feedback submit-feedback-error" role="alert">
+                {submitMessage}
+              </p>
+            ) : null}
+          </Revealable>
+
+          {/* FOOTER */}
+          <footer className="site-footer">
+            <div className="footer-crest">
               <OliveCrest />
             </div>
-
-            <h1 className="names">
-              <span className="name-line">Elena</span>
-              <span className="ampersand" aria-hidden="true">&amp;</span>
-              <span className="sr-only"> and </span>
-              <span className="name-line name-line-right">Lucas</span>
-            </h1>
-
-            <svg
-              className="names-swash"
-              viewBox="0 0 380 40"
-              aria-hidden="true"
-              role="presentation"
-            >
-              <path d="M 8 28 C 60 10, 130 36, 190 22 S 320 10, 372 28" />
-              <circle className="swash-dot" cx="4" cy="29" />
-              <circle className="swash-dot" cx="376" cy="29" />
-            </svg>
-
-            <p className="hero-date">
-              Saturday · October seventeenth · Two thousand twenty-six
+            <p className="footer-names">Grasya &amp; Valian</p>
+            <p className="footer-date">October 17, 2026 · Larkspur Estate</p>
+            <p className="footer-caption">
+              We cannot wait to dance with you.
             </p>
-            <p className="hero-venue">The Gilded Conservatory — Larkspur Estate</p>
+          </footer>
 
-            <Countdown target={WEDDING_DATE} />
-
-            <a className="scroll-cue" href="#story" aria-label="Scroll to our story">
-              <span>scroll</span>
-              <span className="scroll-cue-line" aria-hidden="true" />
-            </a>
-          </div>
-        </section>
-
-        {/* STORY */}
-        <StorySection />
-
-        {/* TIMELINE */}
-        <Revealable className="timeline-section">
-          <header className="section-header">
-            <p className="section-label">The day</p>
-            <h2 className="section-heading">
-              A slow evening <em>of candlelight.</em>
-            </h2>
-            <Sprig className="section-sprig" />
-          </header>
-
-          <ol className="timeline">
-            <li className="timeline-item">
-              <p className="timeline-time">4:30 pm</p>
-              <p className="timeline-label">Arrival</p>
-              <h3>A welcome drink</h3>
-              <p className="timeline-body">
-                Find your seat in the olive grove. Something cold, something sparkling.
-              </p>
-            </li>
-            <li className="timeline-item">
-              <p className="timeline-time">5:30 pm</p>
-              <p className="timeline-label">The ceremony</p>
-              <h3>Golden-hour vows</h3>
-              <p className="timeline-body">
-                Garden aisle · a small quartet · thirty minutes that will change
-                everything, and nothing.
-              </p>
-            </li>
-            <li className="timeline-item">
-              <p className="timeline-time">7:00 pm</p>
-              <p className="timeline-label">Reception</p>
-              <h3>Candlelit supper</h3>
-              <p className="timeline-body">
-                A long table under the glass atrium. Speeches that will make you cry.
-                Dancing that will make you forget to.
-              </p>
-            </li>
-            <li className="timeline-item">
-              <p className="timeline-time">11:30 pm</p>
-              <p className="timeline-label">Afterglow</p>
-              <h3>Pastries &amp; a last dance</h3>
-              <p className="timeline-body">
-                Espresso, small sweets, and one quiet slow song before lanterns lead
-                you back through the grove.
-              </p>
-            </li>
-          </ol>
-        </Revealable>
-
-        {/* GALLERY */}
-        <Revealable className="gallery-section">
-          <header className="section-header">
-            <p className="section-label">Moments</p>
-            <h2 className="section-heading">
-              Ten years <em>of Sundays.</em>
-            </h2>
-          </header>
-
-          <div className="gallery-grid">
-            {GALLERY_IMGS.map((img, i) => (
-              <figure
-                key={img.src}
-                className={`gallery-item ${img.span ? `is-${img.span}` : ""}`}
-                style={{ "--i": i } as React.CSSProperties}
-                onClick={() => setLightboxIdx(i)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setLightboxIdx(i);
-                  }
-                }}
-                aria-label={`Expand photo: ${img.alt}`}
+          {/* LIGHTBOX */}
+          {lightboxIdx !== null && (
+            <div
+              className="lightbox"
+              role="dialog"
+              aria-modal="true"
+              aria-label={GALLERY_IMGS[lightboxIdx].alt}
+              onClick={() => setLightboxIdx(null)}
+            >
+              <button
+                type="button"
+                className="lightbox-close"
+                onClick={(e) => { e.stopPropagation(); setLightboxIdx(null); }}
+                aria-label="Close"
               >
+                ×
+              </button>
+              <button
+                type="button"
+                className="lightbox-nav lightbox-prev"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIdx((i) =>
+                    i === null ? null : (i - 1 + GALLERY_IMGS.length) % GALLERY_IMGS.length,
+                  );
+                }}
+                aria-label="Previous photo"
+              >
+                ‹
+              </button>
+              <figure className="lightbox-figure" onClick={(e) => e.stopPropagation()}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img.src} alt={img.alt} loading="lazy" />
-                <span className="gallery-expand" aria-hidden="true">+</span>
+                <img src={GALLERY_IMGS[lightboxIdx].src} alt={GALLERY_IMGS[lightboxIdx].alt} />
+                <figcaption>{GALLERY_IMGS[lightboxIdx].alt}</figcaption>
               </figure>
-            ))}
-          </div>
-        </Revealable>
-
-        {/* VENUE + DETAILS */}
-        <Revealable className="venue-section">
-          <div className="venue-image">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={VENUE_IMG} alt="" />
-          </div>
-          <div className="venue-text">
-            <p className="section-label">The venue</p>
-            <h2 className="section-heading">
-              A glass atrium <em>in the olive grove.</em>
-            </h2>
-            <p className="venue-address">
-              Larkspur Estate · 47 Conservatory Lane
-              <br />
-              Larkspur, California
-            </p>
-
-            <div className="details-grid">
-              <article className="detail-card">
-                <p className="detail-kicker">Stay the night</p>
-                <h3>The Larkspur Inn</h3>
-                <p>
-                  A small block of rooms is held under our names until the first of
-                  September. Mention the wedding when booking.
-                </p>
-              </article>
-              <article className="detail-card">
-                <p className="detail-kicker">Attire</p>
-                <h3>Black-tie optional</h3>
-                <p>
-                  We want you comfortable. Long dresses, suits, soft florals — and
-                  shoes that will carry you through the dance floor.
-                </p>
-              </article>
-              <article className="detail-card">
-                <p className="detail-kicker">Getting there</p>
-                <h3>A short drive north</h3>
-                <p>
-                  Forty minutes from the city. Valet parking will be open from four
-                  o&apos;clock. A late-night shuttle returns at midnight.
-                </p>
-              </article>
+              <button
+                type="button"
+                className="lightbox-nav lightbox-next"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIdx((i) =>
+                    i === null ? null : (i + 1) % GALLERY_IMGS.length,
+                  );
+                }}
+                aria-label="Next photo"
+              >
+                ›
+              </button>
+              <p className="lightbox-counter">
+                {lightboxIdx + 1} / {GALLERY_IMGS.length}
+              </p>
             </div>
-          </div>
-        </Revealable>
+          )}
 
-        {/* RSVP */}
-        <Revealable as="section" className="rsvp-section" id="rsvp">
-          <header className="section-header">
-            <p className="section-label">RSVP</p>
-            <h2 className="section-heading">
-              Kindly reply <em>by the first of September.</em>
-            </h2>
-            <p className="rsvp-instruction">
-              A note, a song, a toast — anything you leave below reaches us directly.
-            </p>
-          </header>
-
-          <form className="rsvp-form" onSubmit={handleSubmit}>
-            <div className="field field-wide">
-              <label htmlFor="name">Your name, in full</label>
-              <input id="name" name="name" type="text" autoComplete="name" required />
-            </div>
-
-            <fieldset className="field field-wide attendance">
-              <legend>Will you join us?</legend>
-              <label className="choice">
-                <input type="radio" name="attendance" value="yes" required />
-                <span className="choice-body">
-                  <span className="choice-title">Joyfully</span>
-                  <span className="choice-sub">I wouldn&apos;t miss it</span>
-                </span>
-              </label>
-              <label className="choice">
-                <input type="radio" name="attendance" value="no" required />
-                <span className="choice-body">
-                  <span className="choice-title">Regretfully</span>
-                  <span className="choice-sub">Sending love from afar</span>
-                </span>
-              </label>
-            </fieldset>
-
-            <div className="field">
-              <label htmlFor="guests">Seated with me</label>
-              <select id="guests" name="guests" defaultValue="1">
-                <option value="1">Just myself</option>
-                <option value="2">Two of us</option>
-                <option value="3">A party of three</option>
-                <option value="4">A party of four</option>
-              </select>
-            </div>
-
-            <div className="field">
-              <label htmlFor="song">A song, a toast, a wish</label>
-              <input id="song" name="song" type="text" placeholder="optional" />
-            </div>
-
-            <div className="field field-wide">
-              <label htmlFor="note">A message for the couple</label>
-              <textarea
-                id="note"
-                name="note"
-                rows={4}
-                placeholder="Tell us anything at all — we will read it twice."
-              />
-            </div>
-
-            <button type="submit" className="submit-btn" disabled={submitState === "saving"}>
-              <span>{submitState === "saving" ? "Sending..." : "Seal & send"}</span>
-              <span className="submit-btn-sprig" aria-hidden="true">❦</span>
-            </button>
-          </form>
-
-          {submittedName && submitState === "success" && submitMessage ? (
-            <p className="submit-feedback" role="status">
-              Thank you, {submittedName}. {submitMessage}
-            </p>
-          ) : null}
-
-          {submitState === "error" && submitMessage ? (
-            <p className="submit-feedback submit-feedback-error" role="alert">
-              {submitMessage}
-            </p>
-          ) : null}
-        </Revealable>
-
-        {/* FOOTER */}
-        <footer className="site-footer">
-          <div className="footer-crest">
-            <OliveCrest />
-          </div>
-          <p className="footer-names">Elena &amp; Lucas</p>
-          <p className="footer-date">October 17, 2026 · Larkspur Estate</p>
-          <p className="footer-caption">
-            We cannot wait to dance with you.
-          </p>
-        </footer>
-
-        {/* LIGHTBOX */}
-        {lightboxIdx !== null && (
-          <div
-            className="lightbox"
-            role="dialog"
-            aria-modal="true"
-            aria-label={GALLERY_IMGS[lightboxIdx].alt}
-            onClick={() => setLightboxIdx(null)}
-          >
-            <button
-              type="button"
-              className="lightbox-close"
-              onClick={(e) => { e.stopPropagation(); setLightboxIdx(null); }}
-              aria-label="Close"
-            >
-              ×
-            </button>
-            <button
-              type="button"
-              className="lightbox-nav lightbox-prev"
-              onClick={(e) => {
-                e.stopPropagation();
-                setLightboxIdx((i) =>
-                  i === null ? null : (i - 1 + GALLERY_IMGS.length) % GALLERY_IMGS.length,
-                );
-              }}
-              aria-label="Previous photo"
-            >
-              ‹
-            </button>
-            <figure className="lightbox-figure" onClick={(e) => e.stopPropagation()}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={GALLERY_IMGS[lightboxIdx].src} alt={GALLERY_IMGS[lightboxIdx].alt} />
-              <figcaption>{GALLERY_IMGS[lightboxIdx].alt}</figcaption>
-            </figure>
-            <button
-              type="button"
-              className="lightbox-nav lightbox-next"
-              onClick={(e) => {
-                e.stopPropagation();
-                setLightboxIdx((i) =>
-                  i === null ? null : (i + 1) % GALLERY_IMGS.length,
-                );
-              }}
-              aria-label="Next photo"
-            >
-              ›
-            </button>
-            <p className="lightbox-counter">
-              {lightboxIdx + 1} / {GALLERY_IMGS.length}
-            </p>
-          </div>
-        )}
-
-        {/* CONFETTI */}
-        {showConfetti && <Confetti />}
-      </main>
+          {/* CONFETTI */}
+          {showConfetti && <Confetti />}
+        </main>
       )}
     </div>
   );

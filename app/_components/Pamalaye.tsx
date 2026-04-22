@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 type Diff = { days: number; hours: number; minutes: number };
 
-const PAMALAYE_DATE = new Date("2026-09-12T16:00:00-07:00");
+const PAMALAYE_DATE = new Date("2026-06-08T16:00:00-07:00");
 
 function diffToTarget(target: Date): Diff {
   const ms = Math.max(0, target.getTime() - Date.now());
@@ -283,7 +283,7 @@ export default function Pamalaye() {
       {/* ─── HERO ─── */}
       <section className="pamalaye-hero">
         <p className="pamalaye-eyebrow">
-          <span>Mga Pamilya Reyes &amp; Dela Cruz</span>
+          <span>Mga Pamilya Labe &amp; Jusain</span>
         </p>
 
         <div className="pamalaye-houses">
@@ -350,16 +350,16 @@ export default function Pamalaye() {
         <div className="pamalaye-house-grid">
           <article className="pamalaye-house-card">
             <p className="pamalaye-house-kicker">Balay ng Babae</p>
-            <h3>Family Reyes</h3>
+            <h3>Family Labe</h3>
             <p className="pamalaye-house-elders">
-              Mr. &amp; Mrs. Antonio Reyes
-              <br />
+              Mr. &amp; Mrs. Labe
+              {/* <br />
               Lola Pacita Reyes
               <br />
-              Tito Eduardo Reyes
+              Tito Eduardo Reyes */}
             </p>
             <p className="pamalaye-house-note">
-              of San Pablo, Laguna
+              Ermita, Poblacion, Pamplona, Negros Oriental
             </p>
           </article>
 
@@ -373,17 +373,17 @@ export default function Pamalaye() {
 
           <article className="pamalaye-house-card">
             <p className="pamalaye-house-kicker">Balay ng Lalaki</p>
-            <h3>Family Dela Cruz</h3>
+            <h3>Family Jusain</h3>
             <p className="pamalaye-house-elders">
-              Mr. &amp; Mrs. Ramon Dela Cruz
-              <br />
+              Mr. &amp; Mrs. Jusain
+              {/* <br />
               Lolo Benigno Dela Cruz
               <br />
-              Tita Corazon Dela Cruz
+              Tita Corazon Dela Cruz */}
             </p>
-            <p className="pamalaye-house-note">
+            {/* <p className="pamalaye-house-note">
               of Cebu City, Cebu
-            </p>
+            </p> */}
           </article>
         </div>
       </Revealable>
@@ -392,14 +392,14 @@ export default function Pamalaye() {
       <Revealable className="pamalaye-asking">
         <p className="pamalaye-section-label">the asking</p>
         <h2 className="pamalaye-h2">
-          A Saturday afternoon, <em>in September.</em>
+          A Monday afternoon, <em>in June.</em>
         </h2>
 
         <div className="pamalaye-asking-details">
           <div className="pamalaye-asking-row">
             <span className="pamalaye-asking-key">When</span>
             <span className="pamalaye-asking-val">
-              Saturday · the twelfth of September
+              Monday · the eighth of June
               <br />
               Two thousand twenty-six · four o&rsquo;clock
             </span>
@@ -407,19 +407,19 @@ export default function Pamalaye() {
           <div className="pamalaye-asking-row">
             <span className="pamalaye-asking-key">Where</span>
             <span className="pamalaye-asking-val">
-              Casa Reyes
+              Ermita
               <br />
-              48 Calle Rizal, San Pablo, Laguna
+              Poblacion, Pamplona, Negros Oriental
             </span>
           </div>
-          <div className="pamalaye-asking-row">
+          {/* <div className="pamalaye-asking-row">
             <span className="pamalaye-asking-key">Dress</span>
             <span className="pamalaye-asking-val">
               Barong tagalog, terno, or Sunday best
               <br />
               <em>ivory, cream, soft earth tones</em>
             </span>
-          </div>
+          </div> */}
           <div className="pamalaye-asking-row">
             <span className="pamalaye-asking-key">Please bring</span>
             <span className="pamalaye-asking-val">
@@ -455,14 +455,14 @@ export default function Pamalaye() {
         <p className="pamalaye-closing-signoff">
           With reverence,
           <br />
-          <span>Elena Reyes &amp; Lucas Dela Cruz</span>
+          <span>Mary Grace Lado Labe &amp; Valiant Zerna Jusain</span>
         </p>
       </Revealable>
 
       <footer className="pamalaye-footer">
-        <p>Mga Pamilya Reyes &amp; Dela Cruz</p>
+        <p>Mga Pamilya Labe &amp; Jusain</p>
         <p className="pamalaye-footer-small">
-          September 12, 2026 &middot; San Pablo, Laguna
+          June 8, 2026 &middot; Ermita, Poblacion, Pamplona, Negros Oriental
         </p>
       </footer>
     </div>
