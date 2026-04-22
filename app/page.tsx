@@ -450,8 +450,8 @@ export default function Home() {
 
   useEffect(() => {
     if (!hasRequiredConfig || !db) {
-      // no firebase → preserve the original wedding-invitation baseline
-      setSiteStage("wedding");
+      // no firebase → fall back to pamalaye holding page
+      setSiteStage("pamalaye");
       return;
     }
     const unsub = onSnapshot(
@@ -460,7 +460,7 @@ export default function Home() {
         const next = snap.exists() ? (snap.data() as { stage?: SiteStage })?.stage : undefined;
         setSiteStage(next === "wedding" ? "wedding" : "pamalaye");
       },
-      () => setSiteStage("wedding"),
+      () => setSiteStage("pamalaye"),
     );
     return () => unsub();
   }, []);
