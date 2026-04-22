@@ -767,10 +767,10 @@ export default function Home() {
             <aside className="date-strip" aria-hidden="true">
               <span className="date-strip-year">MMXXVI</span>
               <span className="date-strip-dot">·</span>
-              <span className="date-strip-month">October</span>
-              <span className="date-strip-day">the seventeenth</span>
+              <span className="date-strip-month">June</span>
+              <span className="date-strip-day">the eighth</span>
               <span className="date-strip-dot">·</span>
-              <span className="date-strip-place">Larkspur Estate</span>
+              <span className="date-strip-place">Negros Oriental</span>
             </aside>
 
             <div className="hero-inner">
@@ -1032,7 +1032,7 @@ export default function Home() {
               <OliveCrest />
             </div>
             <p className="footer-names">Grasya &amp; Valian</p>
-            <p className="footer-date">October 17, 2026 · Larkspur Estate</p>
+            <p className="footer-date">June 8, 2026 · Negros Oriental</p>
             <p className="footer-caption">
               We cannot wait to dance with you.
             </p>
