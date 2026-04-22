@@ -706,9 +706,9 @@ export default function Home() {
             >
               <span className="wax-crest-ring" aria-hidden="true" />
               <span className="wax-crest-monogram">
-                <em>E</em>
+                <em>G</em>
                 <i>&amp;</i>
-                <em>L</em>
+                <em>V</em>
               </span>
             </button>
           </div>
