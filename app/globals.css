@@ -3809,15 +3809,15 @@ html.site-open .paper-grain {
    ───────────────────────────────────────────────────────────── */
 
 .pamalaye-page {
-  --pam-paper:         #f5ead0;
-  --pam-paper-deep:    #ead69f;
-  --pam-abaca:         #e9d7ac;
-  --pam-ivory:         #fbf5e3;
-  --pam-narra:         #3a221a;
-  --pam-narra-soft:    #5b3826;
-  --pam-moss:          #506640;
-  --pam-moss-deep:     #394a2d;
-  --pam-vermilion:     #a0341a;
+  --pam-paper:         #f5e4ce;
+  --pam-paper-deep:    #e5cfb2;
+  --pam-abaca:         #ead2a6;
+  --pam-ivory:         #fbf1dc;
+  --pam-narra:         #2a0e13;
+  --pam-narra-soft:    #4f232b;
+  --pam-moss:          #800020;
+  --pam-moss-deep:     #55000f;
+  --pam-vermilion:     #9a2438;
   --pam-gilt:          #9a7a3e;
   --pam-gilt-soft:     #c9a870;
 
@@ -3828,8 +3828,8 @@ html.site-open .paper-grain {
   font-family: var(--font-body), "EB Garamond", Georgia, serif;
   background:
     radial-gradient(ellipse at 12% 0%, #f8ecc9 0%, transparent 45%),
-    radial-gradient(ellipse at 92% 100%, #e2c992 0%, transparent 50%),
-    linear-gradient(180deg, var(--pam-paper) 0%, #eedbac 100%);
+    radial-gradient(ellipse at 92% 100%, rgba(128, 0, 32, 0.14) 0%, transparent 55%),
+    linear-gradient(180deg, var(--pam-paper) 0%, #e6c59a 100%);
   overflow-x: hidden;
   padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 4vw, 2.4rem) 4rem;
   z-index: 0;
@@ -3837,7 +3837,51 @@ html.site-open .paper-grain {
 
 .pamalaye-boot {
   min-height: 100vh;
-  background: #f5ead0;
+  background: #f5e4ce;
+}
+
+/* ─── Nautical wax seal (groom is a seaman) ────────────── */
+
+.wax-crest-anchor-seal {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.18em;
+  color: var(--cream);
+  filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.35));
+}
+
+.wax-crest-anchor {
+  width: 52%;
+  height: auto;
+  display: block;
+}
+
+.wax-crest-anchor path,
+.wax-crest-anchor line,
+.wax-crest-anchor circle {
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.wax-crest-anchor .wax-anchor-fluke {
+  fill: currentColor;
+  stroke-width: 1.2;
+}
+
+.wax-crest-initials {
+  font-family: var(--font-display), serif;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  font-weight: 700;
+  font-size: clamp(0.58rem, 1vw, 0.72rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0.92;
+  line-height: 1;
 }
 
 /* paper grain + woven piña texture */
