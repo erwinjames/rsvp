@@ -9,7 +9,7 @@ type Stage = "sealed" | "opening" | "playing" | "revealed";
 type SiteStage = "pamalaye" | "wedding";
 
 // YouTube video id for "Little Things — One Direction". Swap if needed.
-const MUSIC_VIDEO_ID = "QJO3ROT-A4E";
+const MUSIC_VIDEO_ID = "xGPeNN9S0Fg";
 
 function OliveCrest({ className = "" }: { className?: string }) {
   return (
@@ -699,17 +699,18 @@ export default function Home() {
             </div>
             <button
               type="button"
-              className="wax-crest"
+              className="wax-crest is-photo"
               onClick={openEnvelope}
               disabled={!canOpenEnvelope}
               aria-label="Break the seal to open the invitation"
             >
-              <span className="wax-crest-ring" aria-hidden="true" />
-              <span className="wax-crest-monogram">
-                <em>G</em>
-                <i>&amp;</i>
-                <em>V</em>
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/seal.png"
+                alt=""
+                className="wax-crest-image"
+                draggable={false}
+              />
             </button>
           </div>
         </div>

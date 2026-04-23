@@ -6,7 +6,7 @@ type Diff = { days: number; hours: number; minutes: number };
 type Stage = "sealed" | "opening" | "playing" | "revealed";
 
 const PAMALAYE_DATE = new Date("2026-06-08T16:00:00-07:00");
-const MUSIC_VIDEO_ID = "QJO3ROT-A4E";
+const MUSIC_VIDEO_ID = "xGPeNN9S0Fg";
 
 function diffToTarget(target: Date): Diff {
   const ms = Math.max(0, target.getTime() - Date.now());
