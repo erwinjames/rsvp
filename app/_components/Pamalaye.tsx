@@ -792,6 +792,14 @@ function PamalayeContent() {
         <p className="pamalaye-footer-small">
           June 8, 2026 &middot; Ermita, Poblacion, Pamplona, Negros Oriental
         </p>
+        <p className="pamalaye-footer-blessing">
+          We look forward to your presence and blessings on this special
+          occasion. See you there.
+        </p>
+        <figure className="pamalaye-footer-portrait" aria-label="Our beloved dogs">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/dogs.jpeg" alt="Our beloved dogs" loading="lazy" />
+        </figure>
       </footer>
     </div>
   );

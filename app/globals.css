@@ -5966,6 +5966,85 @@ html.site-open .paper-grain {
   color: var(--pam-moss) !important;
 }
 
+.pamalaye-footer-blessing {
+  margin: 2rem auto 0 !important;
+  max-width: 40ch;
+  font-family: var(--font-display), serif !important;
+  font-variation-settings: "opsz" 18 !important;
+  font-style: italic;
+  font-size: 1rem !important;
+  line-height: 1.75;
+  color: var(--pam-narra-soft) !important;
+  letter-spacing: 0.015em !important;
+}
+
+.pamalaye-footer-blessing::before {
+  content: "";
+  display: block;
+  width: 52px;
+  height: 1px;
+  margin: 0 auto 1.1rem;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--pam-gilt),
+    transparent
+  );
+  opacity: 0.55;
+}
+
+.pamalaye-footer-portrait {
+  margin: 2rem auto 0.4rem;
+  width: clamp(180px, 24vw, 240px);
+  padding: 10px;
+  background: var(--pam-ivory);
+  border: 1px solid var(--pam-gilt);
+  outline: 1px solid var(--pam-gilt);
+  outline-offset: 4px;
+  box-shadow:
+    0 1px 0 var(--pam-paper-deep) inset,
+    0 18px 30px -16px rgba(42, 14, 19, 0.35);
+  transform: rotate(-1deg);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  position: relative;
+}
+
+.pamalaye-footer-portrait::before,
+.pamalaye-footer-portrait::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--pam-gilt);
+  opacity: 0.7;
+}
+
+.pamalaye-footer-portrait::before {
+  top: 3px;
+  left: 3px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.pamalaye-footer-portrait::after {
+  bottom: 3px;
+  right: 3px;
+  border-left: none;
+  border-top: none;
+}
+
+.pamalaye-footer-portrait:hover {
+  transform: rotate(0) translateY(-2px);
+}
+
+.pamalaye-footer-portrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: sepia(0.18) saturate(0.88) contrast(0.96);
+}
+
 /* ─── Reveals + shared motion ─── */
 
 .pamalaye-reveal {
