@@ -560,11 +560,44 @@ function PamalayeContent() {
         <div className="pamalaye-asking-details">
           <div className="pamalaye-asking-row">
             <span className="pamalaye-asking-key">When</span>
-            <span className="pamalaye-asking-val">
+            <div className="pamalaye-asking-val">
               Monday · the eighth of June
               <br />
               Two thousand twenty-six · four o&rsquo;clock
-            </span>
+
+              <ol className="pamalaye-schedule" aria-label="Order of the afternoon">
+                <li className="pamalaye-schedule-item">
+                  <span className="pamalaye-schedule-bullet" aria-hidden="true" />
+                  <span className="pamalaye-schedule-time">
+                    3<i>pm</i>
+                  </span>
+                  <span className="pamalaye-schedule-label">
+                    <span className="pamalaye-schedule-name"> Merienda</span>
+                    <span className="pamalaye-schedule-gloss"> light snacks served</span>
+                  </span>
+                </li>
+                <li className="pamalaye-schedule-item is-pivot">
+                  <span className="pamalaye-schedule-bullet" aria-hidden="true" />
+                  <span className="pamalaye-schedule-time">
+                    4<i>pm</i>
+                  </span>
+                  <span className="pamalaye-schedule-label">
+                    <span className="pamalaye-schedule-name"> Pamalaye</span>
+                    <span className="pamalaye-schedule-gloss"> the asking begins</span>
+                  </span>
+                </li>
+                <li className="pamalaye-schedule-item">
+                  <span className="pamalaye-schedule-bullet" aria-hidden="true" />
+                  <span className="pamalaye-schedule-time">
+                    6<i>pm</i>
+                  </span>
+                  <span className="pamalaye-schedule-label">
+                    <span className="pamalaye-schedule-name"> Hapunan</span>
+                    <span className="pamalaye-schedule-gloss"> supper, together</span>
+                  </span>
+                </li>
+              </ol>
+            </div>
           </div>
           <div className="pamalaye-asking-row">
             <span className="pamalaye-asking-key">Where</span>

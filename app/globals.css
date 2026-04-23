@@ -5416,6 +5416,143 @@ html.site-open .paper-grain {
   letter-spacing: 0.02em;
 }
 
+/* Order of the afternoon — vertical gilt thread strung with sampaguita-bud markers */
+.pamalaye-schedule {
+  list-style: none;
+  margin: 1.4rem 0 0.2rem;
+  padding: 0.4rem 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.05rem;
+  text-align: left;
+}
+
+/* the gilt thread connecting the bullets */
+.pamalaye-schedule::before {
+  content: "";
+  position: absolute;
+  left: 6.5px;
+  top: 0.9rem;
+  bottom: 0.9rem;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--pam-gilt) 12%,
+    var(--pam-gilt) 88%,
+    transparent
+  );
+  opacity: 0.6;
+  z-index: 0;
+}
+
+.pamalaye-schedule-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 14px auto 1fr;
+  align-items: start;
+  column-gap: 0.95rem;
+  font-family: var(--font-display), serif;
+}
+
+.pamalaye-schedule-bullet {
+  position: relative;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  margin-top: 0.5em;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 32% 30%,
+      #d97a8a 0%,
+      var(--pam-vermilion) 60%,
+      #5a131e 100%
+    );
+  box-shadow:
+    0 0 0 2px var(--pam-ivory),
+    0 0 0 3px rgba(154, 122, 62, 0.6);
+}
+
+.pamalaye-schedule-item.is-pivot .pamalaye-schedule-bullet {
+  background:
+    radial-gradient(
+      circle at 32% 30%,
+      #f0c98a 0%,
+      var(--pam-gilt) 55%,
+      #5a3a14 100%
+    );
+  box-shadow:
+    0 0 0 2px var(--pam-ivory),
+    0 0 0 3px var(--pam-vermilion),
+    0 0 9px rgba(154, 122, 62, 0.5);
+}
+
+.pamalaye-schedule-time {
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--pam-vermilion);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.pamalaye-schedule-time i {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.42em;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-left: 0.2em;
+  color: var(--pam-narra-soft);
+  opacity: 0.85;
+  vertical-align: 0.42em;
+}
+
+.pamalaye-schedule-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  line-height: 1.25;
+  padding-top: 0.18rem;
+}
+
+.pamalaye-schedule-name {
+  font-variation-settings: "opsz" 14;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--pam-narra);
+}
+
+.pamalaye-schedule-item.is-pivot .pamalaye-schedule-name {
+  position: relative;
+  font-weight: 600;
+  font-size: 1.12rem;
+}
+
+.pamalaye-schedule-item.is-pivot .pamalaye-schedule-name::after {
+  content: "";
+  display: block;
+  margin-top: 3px;
+  width: 1.4em;
+  height: 1px;
+  background: var(--pam-gilt);
+  opacity: 0.75;
+}
+
+.pamalaye-schedule-gloss {
+  font-family: var(--font-display), serif;
+  font-variation-settings: "opsz" 14;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pam-narra-soft);
+  opacity: 0.78;
+}
+
 /* event colour palette — small swatch strip under the dress code */
 .pamalaye-palette {
   list-style: none;
