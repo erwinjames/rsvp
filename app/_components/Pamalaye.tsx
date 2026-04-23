@@ -321,6 +321,87 @@ function PamalayeContent() {
           <span className="pamalaye-letter-spine" aria-hidden="true" />
 
           <p className="pamalaye-section-label">a word, a walking</p>
+
+          <aside className="pamalaye-definition" aria-label="Balay — definition">
+            <p className="pamalaye-definition-tag">
+              <span>Visayan</span>
+              <em aria-hidden="true">·</em>
+              <span>n.</span>
+              <em aria-hidden="true">·</em>
+              <span className="pamalaye-definition-pron">
+                /ba<span className="pamalaye-definition-pron-stress">láy</span>/
+              </span>
+            </p>
+
+            <h3 className="pamalaye-definition-headword">
+              <span className="pamalaye-definition-initial">B</span>alay
+              <span className="pamalaye-definition-period">.</span>
+            </h3>
+
+            <div className="pamalaye-definition-rule" aria-hidden="true">
+              <span className="pamalaye-definition-rule-line" />
+              <svg
+                width="60"
+                height="18"
+                viewBox="-30 -9 60 18"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <ellipse
+                  cx="-20"
+                  cy="0"
+                  rx="9"
+                  ry="2"
+                  transform="rotate(-14 -20 0)"
+                  fill="#9a7a3e"
+                  opacity="0.7"
+                />
+                <ellipse
+                  cx="20"
+                  cy="0"
+                  rx="9"
+                  ry="2"
+                  transform="rotate(14 20 0)"
+                  fill="#9a7a3e"
+                  opacity="0.7"
+                />
+                {[0, 72, 144, 216, 288].map((deg) => (
+                  <ellipse
+                    key={deg}
+                    cx="0"
+                    cy="-3.6"
+                    rx="2.4"
+                    ry="3.8"
+                    transform={`rotate(${deg})`}
+                    fill="#fbf1dc"
+                    stroke="#9a7a3e"
+                    strokeWidth="0.6"
+                  />
+                ))}
+                <circle cx="0" cy="0" r="1.1" fill="#9a2438" />
+              </svg>
+              <span className="pamalaye-definition-rule-line" />
+            </div>
+
+            <p className="pamalaye-definition-gloss">
+              <em>house; a home.</em> The root of{" "}
+              <strong className="pamalaye-definition-root">pamalaye</strong> &mdash;
+              the going, house to house, carrying one&rsquo;s hopes in both hands.
+            </p>
+
+            <p className="pamalaye-definition-body">
+              Traditionally, the family of the groom calls upon the family of the
+              bride. Elders speak. Parents listen. A dowry is offered &mdash; not
+              always gold, sometimes a promise:{" "}
+              <em>to honour, to provide, to belong.</em>
+            </p>
+
+            <p className="pamalaye-definition-body">
+              It is an old rite, quiet and formal. We keep it because some promises
+              are only real when they&rsquo;re spoken inside a living room, over
+              coffee still too hot to drink.
+            </p>
+          </aside>
+
           <h2 className="pamalaye-h2">
             <span className="pamalaye-dropcap">A</span> place of strength,
             <br />
@@ -462,9 +543,9 @@ function PamalayeContent() {
               <br />
               <em className="pamalaye-house-note">Special mention: Nida Jusain 🕊️(Deceased)</em>
             </p>
-            {/* <p className="pamalaye-house-note">
-              of Cebu City, Cebu
-            </p> */}
+            <p className="pamalaye-house-note">
+              Odiongan, Brgy. Novallas, Tanjay City
+            </p>
           </article>
         </div>
       </Revealable>
@@ -667,7 +748,7 @@ function PamalayeContent() {
         <p className="pamalaye-closing-signoff">
           With reverence,
           <br />
-          <span>Mary Grace Lado Labe &amp; Valiant Zerna Jusain</span>
+          <span>Mary Grace Lado Labe &amp; Valian Zerna Jusain</span>
         </p>
       </Revealable>
 

@@ -4801,6 +4801,198 @@ html.site-open .paper-grain {
   color: var(--pam-vermilion);
 }
 
+/* Balay — illuminated dictionary card anchoring the etymology */
+.pamalaye-definition {
+  position: relative;
+  margin: 0 auto 2.6rem;
+  padding: clamp(2rem, 5vw, 2.8rem) clamp(1.8rem, 5vw, 3rem) clamp(1.8rem, 4.5vw, 2.4rem);
+  max-width: 38rem;
+  text-align: center;
+  background:
+    radial-gradient(120% 60% at 50% -10%, rgba(154, 122, 62, 0.12), transparent 65%),
+    radial-gradient(120% 80% at 50% 110%, rgba(122, 42, 51, 0.06), transparent 60%),
+    linear-gradient(180deg, #fdf4de 0%, #f6e6c5 100%);
+  border-top: 2px double var(--pam-gilt);
+  border-bottom: 2px double var(--pam-gilt);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 18px 38px -22px rgba(60, 30, 12, 0.38),
+    0 4px 12px -8px rgba(60, 30, 12, 0.18);
+}
+
+/* faint inner double rule — the second margin line in a printed entry */
+.pamalaye-definition::before {
+  content: "";
+  position: absolute;
+  inset: 12px 14px;
+  border: 1px solid rgba(154, 122, 62, 0.22);
+  pointer-events: none;
+}
+
+/* CSS-only gilt corner brackets — drawn with two borders per corner */
+.pamalaye-definition::after {
+  content: "";
+  position: absolute;
+  inset: 8px 10px;
+  background:
+    /* top-left */
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) top    left  / 14px 1.5px no-repeat,
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) top    left  / 1.5px 14px no-repeat,
+    /* top-right */
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) top    right / 14px 1.5px no-repeat,
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) top    right / 1.5px 14px no-repeat,
+    /* bottom-left */
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) bottom left  / 14px 1.5px no-repeat,
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) bottom left  / 1.5px 14px no-repeat,
+    /* bottom-right */
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) bottom right / 14px 1.5px no-repeat,
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) bottom right / 1.5px 14px no-repeat;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* part-of-speech tag pill */
+.pamalaye-definition-tag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin: 0 auto 1.3rem;
+  padding: 0.4rem 1.1rem;
+  font-family: var(--font-display), serif;
+  font-variation-settings: "opsz" 14;
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--pam-narra-soft);
+  border: 1px solid rgba(154, 122, 62, 0.5);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.4);
+}
+.pamalaye-definition-tag em {
+  color: var(--pam-gilt);
+  font-style: normal;
+  letter-spacing: 0;
+  opacity: 0.85;
+}
+.pamalaye-definition-pron {
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  letter-spacing: 0.16em;
+  color: var(--pam-vermilion);
+  text-transform: lowercase;
+}
+.pamalaye-definition-pron-stress {
+  font-weight: 600;
+}
+
+/* headword with illuminated initial */
+.pamalaye-definition-headword {
+  position: relative;
+  margin: 0 0 1.4rem;
+  font-family: var(--font-display), serif;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  font-size: clamp(2.6rem, 7.5vw, 3.8rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--pam-narra);
+  letter-spacing: -0.018em;
+}
+
+.pamalaye-definition-initial {
+  position: relative;
+  display: inline-block;
+  font-style: italic;
+  font-size: 1.18em;
+  line-height: 0.85;
+  color: var(--pam-vermilion);
+  margin-right: -0.02em;
+  text-shadow:
+    1px 1px 0 rgba(154, 122, 62, 0.18),
+    0 0 14px rgba(154, 36, 56, 0.12);
+}
+
+/* gilt halo-flourish under the illuminated B */
+.pamalaye-definition-initial::after {
+  content: "";
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: -0.05em;
+  height: 6px;
+  background: radial-gradient(closest-side, var(--pam-gilt) 0%, transparent 72%);
+  opacity: 0.6;
+}
+
+.pamalaye-definition-period {
+  color: var(--pam-vermilion);
+}
+
+/* sampaguita-and-leaves rule */
+.pamalaye-definition-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0 auto 1.5rem;
+  width: min(85%, 22rem);
+}
+.pamalaye-definition-rule-line {
+  flex: 1 1 auto;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--pam-gilt) 30%,
+    var(--pam-gilt) 70%,
+    transparent
+  );
+  opacity: 0.7;
+}
+.pamalaye-definition-rule svg {
+  flex: 0 0 auto;
+  display: block;
+}
+
+/* gloss — the dictionary's core definition line */
+.pamalaye-definition-gloss {
+  margin: 0 0 1.4rem;
+  font-family: var(--font-display), serif;
+  font-variation-settings: "opsz" 14;
+  font-size: clamp(1.05rem, 2.6vw, 1.18rem);
+  line-height: 1.6;
+  color: var(--pam-narra);
+}
+.pamalaye-definition-gloss em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--pam-vermilion);
+}
+
+.pamalaye-definition-root {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--pam-vermilion);
+  border-bottom: 1px dotted rgba(154, 36, 56, 0.45);
+  padding: 0 0.06em;
+}
+
+.pamalaye-definition-body {
+  margin: 1rem 0 0;
+  font-family: var(--font-display), serif;
+  font-variation-settings: "opsz" 14;
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--pam-narra-soft);
+}
+
+.pamalaye-definition-body em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--pam-narra);
+}
+
 .pamalaye-h2 {
   margin: 0 0 1.6rem;
   font-family: var(--font-display), serif;
