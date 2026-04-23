@@ -431,11 +431,13 @@ function PamalayeContent() {
             <p className="pamalaye-house-kicker">Balay ng Babae</p>
             <h3>Family Labe</h3>
             <p className="pamalaye-house-elders">
-              Mr. &amp; Mrs. Labe
-              {/* <br />
-              Lola Pacita Reyes
+              Mr. Cipriano &amp; Mrs. Thelma Labe
               <br />
-              Tito Eduardo Reyes */}
+              Cipres Labe
+              <br />
+              Totchie Santana
+              <br />
+              Rhotchiel Labe
             </p>
             <p className="pamalaye-house-note">
               Ermita, Poblacion, Pamplona, Negros Oriental
@@ -454,11 +456,11 @@ function PamalayeContent() {
             <p className="pamalaye-house-kicker">Balay ng Lalaki</p>
             <h3>Family Jusain</h3>
             <p className="pamalaye-house-elders">
-              Mr. &amp; Mrs. Jusain
-              {/* <br />
-              Lolo Benigno Dela Cruz
+              Mr. Julito &amp; Mrs. Nancy Jusain
               <br />
-              Tita Corazon Dela Cruz */}
+              Luffy
+              <br />
+              <em className="pamalaye-house-note">Special mention: Nida Jusain 🕊️(Deceased)</em>
             </p>
             {/* <p className="pamalaye-house-note">
               of Cebu City, Cebu
