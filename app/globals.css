@@ -2244,6 +2244,77 @@ html.site-open .paper-grain {
   line-height: 1.65;
 }
 
+.footer-blessing {
+  margin: 2.25rem auto 0;
+  max-width: 40ch;
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(250, 244, 228, 0.88);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
+.footer-blessing::before,
+.footer-blessing::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 1px;
+  margin: 1rem auto;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(250, 244, 228, 0.35),
+    transparent
+  );
+}
+
+.footer-blessing::after {
+  display: none;
+}
+
+.footer-portrait {
+  margin: 2.4rem auto 0;
+  width: clamp(180px, 22vw, 240px);
+  padding: 0.65rem 0.65rem 1.6rem;
+  background: #fbf4e4;
+  border-radius: 2px;
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.12) inset,
+    0 24px 40px -18px rgba(0, 0, 0, 0.55),
+    0 2px 0 rgba(255, 255, 255, 0.03);
+  transform: rotate(-1.4deg);
+  position: relative;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.footer-portrait::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 64px;
+  height: 18px;
+  transform: translateX(-50%) rotate(1.4deg);
+  background: rgba(250, 244, 228, 0.18);
+  border: 1px solid rgba(250, 244, 228, 0.08);
+  backdrop-filter: blur(1px);
+}
+
+.footer-portrait:hover {
+  transform: rotate(0deg) translateY(-2px);
+}
+
+.footer-portrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(0.98);
+}
+
 /* ─── sr-only ───────────────────────────────────────────── */
 
 .sr-only {
