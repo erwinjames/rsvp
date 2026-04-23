@@ -315,27 +315,104 @@ function PamalayeContent() {
         <PamalayeCountdown target={PAMALAYE_DATE} />
       </section>
 
-      {/* ─── ETYMOLOGY ─── */}
+      {/* ─── ETYMOLOGY / OUR STORY ─── */}
       <Revealable className="pamalaye-etymology">
-        <article>
+        <article className="pamalaye-letter">
+          <span className="pamalaye-letter-spine" aria-hidden="true" />
+
           <p className="pamalaye-section-label">a word, a walking</p>
           <h2 className="pamalaye-h2">
-            <span className="pamalaye-dropcap">B</span>alay<span className="pamalaye-ampersand">.</span>
+            <span className="pamalaye-dropcap">A</span> place of strength,
+            <br />
+            <em>where paths quietly crossed.</em>
           </h2>
-          <p className="pamalaye-etymology-def">
-            <span className="pamalaye-part-of-speech">(n.) Visayan</span> — house;
-            a home. The root of <em>pamalaye</em>: the going, house to house,
-            carrying one&rsquo;s hopes in both hands.
+
+          <div className="pamalaye-asterism" aria-hidden="true">
+            <span /><span /><span />
+          </div>
+
+          <ol className="pamalaye-stanzas" role="list">
+            <li className="pamalaye-stanza" data-stanza="I">
+              <p>We met at the gym back in 2022&mdash;</p>
+              <p>no grand introductions,</p>
+              <p>no proper beginnings.</p>
+            </li>
+
+            <li className="pamalaye-stanza" data-stanza="II">
+              <p>Just two souls sharing the same space,</p>
+              <p>unaware of what was slowly unfolding.</p>
+            </li>
+
+            <li className="pamalaye-stanza" data-stanza="III">
+              <p>Somewhere between familiar glances</p>
+              <p>and moments that felt like coincidence,</p>
+              <p><em>our story found its way to begin.</em></p>
+            </li>
+
+            <li className="pamalaye-stanza" data-stanza="IV">
+              <p>What followed were days we grew into&mdash;</p>
+              <p>simple, gentle, and full of meaning.</p>
+            </li>
+          </ol>
+
+          <ul className="pamalaye-gifts" aria-label="the days we grew into">
+            {[
+              <>coffee dates and discovering new caf&eacute;s</>,
+              <>lifting each other up, in and out of the gym</>,
+              <>little adventures outdoors, chasing fresh air and freedom</>,
+              <>
+                flowers, given every month&mdash;
+                <em>a quiet reminder of love that never forgets</em>
+              </>,
+            ].map((text, i) => (
+              <li
+                key={i}
+                className="pamalaye-gift"
+                style={{ "--i": i } as React.CSSProperties}
+              >
+                <span className="pamalaye-gift-bloom" aria-hidden="true">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="-10 -10 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    {[0, 72, 144, 216, 288].map((deg) => (
+                      <ellipse
+                        key={deg}
+                        cx="0"
+                        cy="-4"
+                        rx="2.6"
+                        ry="4.2"
+                        transform={`rotate(${deg})`}
+                        fill="#fbf1dc"
+                        stroke="#9a2438"
+                        strokeWidth="0.8"
+                      />
+                    ))}
+                    <circle r="1.2" fill="#9a7a3e" />
+                  </svg>
+                </span>
+                <span className="pamalaye-gift-text">{text}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="pamalaye-asterism" aria-hidden="true">
+            <span /><span /><span />
+          </div>
+
+          <p className="pamalaye-epigraph">
+            Now, we gather with the people we hold dear
+            <br />
+            to begin <em>the next chapter</em> of our story together.
           </p>
-          <p className="pamalaye-etymology-body">
-            Traditionally, the family of the groom calls upon the family of the bride.
-            Elders speak. Parents listen. A dowry is offered — not always gold, sometimes
-            a promise: <em>to honour, to provide, to belong.</em>
-          </p>
-          <p className="pamalaye-etymology-body">
-            It is an old rite, quiet and formal. We keep it because some promises are
-            only real when they&rsquo;re spoken inside a living room, over coffee still
-            too hot to drink.
+
+          <p className="pamalaye-coda">
+            <span className="pamalaye-coda-rule" aria-hidden="true" />
+            Your presence, in any form,
+            <br />
+            <em>would mean the world.</em>
           </p>
         </article>
       </Revealable>
