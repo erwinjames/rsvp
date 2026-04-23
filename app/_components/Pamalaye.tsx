@@ -6,7 +6,7 @@ type Diff = { days: number; hours: number; minutes: number };
 type Stage = "sealed" | "opening" | "playing" | "revealed";
 
 const PAMALAYE_DATE = new Date("2026-06-08T16:00:00-07:00");
-const MUSIC_VIDEO_ID = "xGPeNN9S0Fg";
+const MUSIC_SRC = "/theme.mp3";
 
 function diffToTarget(target: Date): Diff {
   const ms = Math.max(0, target.getTime() - Date.now());
@@ -797,8 +797,8 @@ function PamalayeContent() {
 
 export default function Pamalaye() {
   const [stage, setStage] = useState<Stage>("sealed");
-  const [musicPlaying, setMusicPlaying] = useState(false);
   const [vinylVanished, setVinylVanished] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const canOpenEnvelope = stage === "sealed";
   const isEnvelopeOpening = stage === "opening" || stage === "playing";
@@ -823,7 +823,11 @@ export default function Pamalaye() {
 
   function playVinyl() {
     if (!canPlayVinyl) return;
-    setMusicPlaying(true);
+    const audio = audioRef.current;
+    if (audio) {
+      audio.currentTime = 0;
+      void audio.play().catch(() => {});
+    }
     setStage("playing");
     // vinyl sparkles + dissolves at 1.3s, the pamalaye page reveals shortly after
     window.setTimeout(() => setVinylVanished(true), 1300);
@@ -941,15 +945,15 @@ export default function Pamalaye() {
         </p>
       </section>
 
-      {musicPlaying && (
-        <iframe
-          className="music-iframe"
-          src={`https://www.youtube.com/embed/${MUSIC_VIDEO_ID}?autoplay=1&controls=0&modestbranding=1&playsinline=1&rel=0&loop=1&playlist=${MUSIC_VIDEO_ID}`}
-          allow="autoplay; encrypted-media"
-          title="Pamalaye · kundiman"
-          aria-hidden="true"
-        />
-      )}
+      <audio
+        ref={audioRef}
+        src={MUSIC_SRC}
+        loop
+        preload="auto"
+        playsInline
+        aria-hidden="true"
+      />
+
 
       {stage !== "sealed" && (
         <main

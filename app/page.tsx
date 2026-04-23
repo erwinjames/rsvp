@@ -8,8 +8,7 @@ import { db, hasRequiredConfig } from "@/lib/firebase";
 type Stage = "sealed" | "opening" | "playing" | "revealed";
 type SiteStage = "pamalaye" | "wedding";
 
-// YouTube video id for "Little Things — One Direction". Swap if needed.
-const MUSIC_VIDEO_ID = "xGPeNN9S0Fg";
+const MUSIC_SRC = "/theme.mp3";
 
 function OliveCrest({ className = "" }: { className?: string }) {
   return (
@@ -482,11 +481,11 @@ export default function Home() {
   const [submitState, setSubmitState] = useState<"idle" | "saving" | "success" | "error">("idle");
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [musicPlaying, setMusicPlaying] = useState(false);
   const [vinylVanished, setVinylVanished] = useState(false);
 
   const heroImgRef = useRef<HTMLImageElement | null>(null);
   const heroCrestRef = useRef<HTMLDivElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const canOpenEnvelope = stage === "sealed";
   const isEnvelopeOpening = stage === "opening" || stage === "playing";
@@ -557,7 +556,11 @@ export default function Home() {
 
   function playVinyl() {
     if (!canPlayVinyl) return;
-    setMusicPlaying(true);
+    const audio = audioRef.current;
+    if (audio) {
+      audio.currentTime = 0;
+      void audio.play().catch(() => {});
+    }
     setStage("playing");
     // vinyl dissolves with sparkles at ~1.3s, site reveals shortly after
     window.setTimeout(() => setVinylVanished(true), 1300);
@@ -723,16 +726,14 @@ export default function Home() {
         </p>
       </section>
 
-      {/* hidden music iframe — persists across stages once started */}
-      {musicPlaying && (
-        <iframe
-          className="music-iframe"
-          src={`https://www.youtube.com/embed/${MUSIC_VIDEO_ID}?autoplay=1&controls=0&modestbranding=1&playsinline=1&rel=0&loop=1&playlist=${MUSIC_VIDEO_ID}`}
-          allow="autoplay; encrypted-media"
-          title="Little Things — One Direction"
-          aria-hidden="true"
-        />
-      )}
+      <audio
+        ref={audioRef}
+        src={MUSIC_SRC}
+        loop
+        preload="auto"
+        playsInline
+        aria-hidden="true"
+      />
 
       {/* ─── full-page wedding site (mounted only after tap) ──── */}
       {stage !== "sealed" && (
