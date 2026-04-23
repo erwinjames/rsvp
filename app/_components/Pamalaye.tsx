@@ -597,32 +597,18 @@ export default function Pamalaye() {
             </div>
             <button
               type="button"
-              className="wax-crest"
+              className="wax-crest is-photo"
               onClick={openEnvelope}
               disabled={!canOpenEnvelope}
               aria-label="Break the seal to open the pamalaye"
             >
-              <span className="wax-crest-ring" aria-hidden="true" />
-              <span className="wax-crest-anchor-seal">
-                <svg className="wax-crest-anchor" viewBox="0 0 100 100" aria-hidden="true">
-                  {/* ring */}
-                  <circle cx="50" cy="20" r="4.5" strokeWidth="2.6" />
-                  {/* shank */}
-                  <line x1="50" y1="24.5" x2="50" y2="72" strokeWidth="2.8" />
-                  {/* stock (double bar) */}
-                  <line x1="36" y1="32" x2="64" y2="32" strokeWidth="2.6" />
-                  <line x1="38" y1="35" x2="62" y2="35" strokeWidth="1.8" />
-                  {/* curved arms */}
-                  <path d="M 50 66 C 30 68 22 58 22 52" strokeWidth="2.6" />
-                  <path d="M 50 66 C 70 68 78 58 78 52" strokeWidth="2.6" />
-                  {/* fluke tips */}
-                  <path className="wax-anchor-fluke" d="M 22 52 L 17 60 L 27 58 Z" />
-                  <path className="wax-anchor-fluke" d="M 78 52 L 83 60 L 73 58 Z" />
-                  {/* rope wave across base */}
-                  <path d="M 18 82 Q 28 76 38 82 T 58 82 T 82 82" strokeWidth="1.4" opacity="0.75" />
-                </svg>
-                <span className="wax-crest-initials">G · V</span>
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/seal.png"
+                alt=""
+                className="wax-crest-image"
+                draggable={false}
+              />
             </button>
           </div>
         </div>
