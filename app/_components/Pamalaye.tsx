@@ -493,14 +493,145 @@ function PamalayeContent() {
               Poblacion, Pamplona, Negros Oriental
             </span>
           </div>
-          {/* <div className="pamalaye-asking-row">
+          <div className="pamalaye-asking-row pamalaye-asking-dress" tabIndex={0}>
             <span className="pamalaye-asking-key">Dress</span>
-            <span className="pamalaye-asking-val">
-              Barong tagalog, terno, or Sunday best
+            <div className="pamalaye-asking-val">
+              White or light beige &middot; casual attire
               <br />
-              <em>ivory, cream, soft earth tones</em>
-            </span>
-          </div> */}
+              <em>set against a deep, old-world palette</em>
+              <ul className="pamalaye-palette" aria-label="event colour palette">
+                {[
+                  { name: "Antique Taupe", c: "#b7a58d" },
+                  { name: "Crimson Velvet", c: "#7a2a33" },
+                  { name: "Claystone", c: "#b09175" },
+                  { name: "Oak Moss", c: "#55553c" },
+                  { name: "Espresso Ember", c: "#2c1810" },
+                ].map((s) => (
+                  <li key={s.name} style={{ "--c": s.c } as React.CSSProperties}>
+                    <span className="pamalaye-swatch" aria-hidden="true" />
+                    <span className="pamalaye-swatch-name">{s.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div
+              className="pamalaye-dress-preview"
+              role="img"
+              aria-label="Dress code reference — white and light beige attire"
+            >
+              <span className="pamalaye-dress-kicker">The wardrobe</span>
+              <img
+                className="pamalaye-dress-img"
+                src="/dress-code.png"
+                alt=""
+                draggable={false}
+                onError={(e) => {
+                  e.currentTarget.classList.add("is-missing");
+                }}
+              />
+              <svg
+                className="pamalaye-dress-forms"
+                viewBox="0 0 240 150"
+                aria-hidden="true"
+              >
+                {/* brass rail */}
+                <line
+                  x1="22"
+                  y1="22"
+                  x2="218"
+                  y2="22"
+                  stroke="#9a7a3e"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                />
+                <circle cx="22" cy="22" r="2" fill="#9a7a3e" />
+                <circle cx="218" cy="22" r="2" fill="#9a7a3e" />
+
+                {/* gown 1 — ivory, strapless A-line */}
+                <g transform="translate(60 22)">
+                  <path
+                    d="M -2 0 q -4 -4 0 -8 q 4 -4 8 0 q 4 4 0 8"
+                    fill="none"
+                    stroke="#9a7a3e"
+                    strokeWidth="0.9"
+                  />
+                  <path
+                    d="M -12 4 L -5 8 L -6 28 L -22 115 L 22 115 L 6 28 L 5 8 L 12 4 Z"
+                    fill="#fbf1dc"
+                    stroke="#b7a58d"
+                    strokeWidth="0.7"
+                  />
+                  <path
+                    d="M -6 40 Q 0 38 6 40"
+                    fill="none"
+                    stroke="#9a7a3e"
+                    strokeWidth="0.5"
+                    opacity="0.7"
+                  />
+                </g>
+
+                {/* gown 2 — linen two-piece, beige */}
+                <g transform="translate(120 22)">
+                  <path
+                    d="M -2 0 q -4 -4 0 -8 q 4 -4 8 0 q 4 4 0 8"
+                    fill="none"
+                    stroke="#9a7a3e"
+                    strokeWidth="0.9"
+                  />
+                  {/* shirt */}
+                  <path
+                    d="M -14 4 L -5 10 L -5 52 L 5 52 L 5 10 L 14 4 L 12 50 L -12 50 Z"
+                    fill="#f1e4cc"
+                    stroke="#b7a58d"
+                    strokeWidth="0.7"
+                  />
+                  <line
+                    x1="0"
+                    y1="10"
+                    x2="0"
+                    y2="48"
+                    stroke="#b7a58d"
+                    strokeWidth="0.4"
+                  />
+                  {/* trousers */}
+                  <path
+                    d="M -12 50 L -8 115 L -2 115 L 0 72 L 2 115 L 8 115 L 12 50 Z"
+                    fill="#c9b89a"
+                    stroke="#9a7a3e"
+                    strokeWidth="0.5"
+                  />
+                </g>
+
+                {/* gown 3 — taupe floor-length */}
+                <g transform="translate(180 22)">
+                  <path
+                    d="M -2 0 q -4 -4 0 -8 q 4 -4 8 0 q 4 4 0 8"
+                    fill="none"
+                    stroke="#9a7a3e"
+                    strokeWidth="0.9"
+                  />
+                  <path
+                    d="M -10 6 L -4 10 L -5 26 L -20 115 L 20 115 L 5 26 L 4 10 L 10 6 Z"
+                    fill="#b7a58d"
+                    stroke="#8a7658"
+                    strokeWidth="0.6"
+                  />
+                  {/* drape line */}
+                  <path
+                    d="M 0 32 Q -4 60 -8 110"
+                    fill="none"
+                    stroke="#8a7658"
+                    strokeWidth="0.4"
+                    opacity="0.6"
+                  />
+                </g>
+              </svg>
+              <span className="pamalaye-dress-caption">
+                ivory &middot; beige &middot; earth
+              </span>
+            </div>
+          </div>
           <div className="pamalaye-asking-row">
             <span className="pamalaye-asking-key">Please bring</span>
             <span className="pamalaye-asking-val">
