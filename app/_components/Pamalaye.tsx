@@ -542,6 +542,8 @@ function PamalayeContent() {
               Luffy
               <br />
               <em className="pamalaye-house-note">Special mention: Nida Jusain 🕊️(Deceased)</em>
+              <br />
+              <em className="pamalaye-house-note">Special mention: Alma Torres 🕊️(Deceased)</em>
             </p>
             <p className="pamalaye-house-note">
               Odiongan, Brgy. Novallas, Tanjay City
@@ -826,7 +828,7 @@ export default function Pamalaye() {
     const audio = audioRef.current;
     if (audio) {
       audio.currentTime = 0;
-      void audio.play().catch(() => {});
+      void audio.play().catch(() => { });
     }
     setStage("playing");
     // vinyl sparkles + dissolves at 1.3s, the pamalaye page reveals shortly after
