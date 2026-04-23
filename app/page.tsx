@@ -391,45 +391,49 @@ function StorySection() {
         <div className="story-v2-text">
           <div className="story-chapter">
             <span>Chapter I</span>
-            <span className="story-chapter-years">2014 — 2026</span>
+            <span className="story-chapter-years">2022 — 2026</span>
           </div>
 
           <p className="section-label">Our story</p>
 
           <h2 className="section-heading story-v2-heading">
-            A rainy{" "}
+            A place of{" "}
             <span className="story-v2-em">
-              <em>Thursday</em>
+              <em>strength</em>
               <svg className="story-v2-underline" viewBox="0 0 220 14" aria-hidden="true">
                 <path d="M 4 9 Q 55 2 110 7 T 216 5" />
               </svg>
             </span>
+            ,
             <br />
-            that never quite ended.
+            where paths quietly crossed.
           </h2>
 
           <div className="story-v2-body">
             <p className="story-v2-para">
-              <span className="dropcap">W</span>e met under a borrowed umbrella
-              neither of us wanted to return. Somewhere between laughter and a
-              long walk home, our forever quietly began.
+              <span className="dropcap">W</span>e met at the gym back in 2022
+              &mdash; no grand introductions, no proper beginnings. Just two
+              souls sharing the same space, unaware of what was slowly
+              unfolding.
             </p>
             <p className="story-v2-para">
-              What followed was a decade of small, ordinary things that became
-              our most extraordinary memories.
+              Somewhere between familiar glances and moments that felt like
+              coincidence, our story found its way to begin. What followed were
+              days we grew into &mdash; simple, gentle, and full of meaning.
             </p>
           </div>
 
-          <ul className="story-moments" aria-label="little things we love">
-            <li><span className="moment-dot" /> coffee on the balcony</li>
-            <li><span className="moment-dot" /> handwritten notes in books</li>
-            <li><span className="moment-dot" /> kitchen dances at midnight</li>
-            <li><span className="moment-dot" /> Sunday market flowers</li>
+          <ul className="story-moments" aria-label="the days we grew into">
+            <li><span className="moment-dot" /> coffee dates &amp; new caf&eacute;s</li>
+            <li><span className="moment-dot" /> lifting each other up, in and out of the gym</li>
+            <li><span className="moment-dot" /> little adventures outdoors</li>
+            <li><span className="moment-dot" /> flowers given every month</li>
           </ul>
 
           <p className="story-v2-closing">
-            Now we are gathering with the people we love most to begin the next
-            chapter together. Your presence, in any form, would mean the world.
+            Now, we gather with the people we hold dear to begin the next
+            chapter of our story together. Your presence, in any form, would
+            mean the world.
           </p>
 
           <p className="story-v2-signoff">
