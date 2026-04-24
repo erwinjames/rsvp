@@ -1,9 +1,9 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { addDoc, collection, doc, onSnapshot, serverTimestamp } from "firebase/firestore";
 import { db, hasRequiredConfig } from "@/lib/firebase";
+import Pamalaye from "./_components/Pamalaye";
 
 type Stage = "sealed" | "opening" | "playing" | "revealed";
 type SiteStage = "pamalaye" | "wedding";
@@ -447,8 +447,8 @@ function StorySection() {
 }
 
 export default function Home() {
-  const router = useRouter();
-  // live site stage — null while resolving. When "pamalaye", redirect to /pamalaye.
+  // live site stage — null while resolving. When "pamalaye", render the Pamalaye
+  // holding page inline at this same URL (no redirect).
   const [siteStage, setSiteStage] = useState<SiteStage | null>(null);
 
   useEffect(() => {
@@ -467,13 +467,6 @@ export default function Home() {
     );
     return () => unsub();
   }, []);
-
-  // if we're still in pamalaye, this route should live at /pamalaye
-  useEffect(() => {
-    if (siteStage === "pamalaye") {
-      router.replace("/pamalaye");
-    }
-  }, [siteStage, router]);
 
   const [stage, setStage] = useState<Stage>("sealed");
   const [submittedName, setSubmittedName] = useState<string | null>(null);
@@ -607,9 +600,14 @@ export default function Home() {
     }
   }
 
-  // hold a neutral loading state while we resolve + while we're bouncing to /pamalaye
-  if (siteStage === null || siteStage === "pamalaye") {
+  // hold a neutral loading state while Firebase resolves
+  if (siteStage === null) {
     return <div className="pamalaye-boot" aria-hidden="true" />;
+  }
+
+  // render the pamalaye holding page inline — same URL, no redirect
+  if (siteStage === "pamalaye") {
+    return <Pamalaye />;
   }
 
   return (
