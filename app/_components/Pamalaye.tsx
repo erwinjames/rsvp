@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 type Diff = { days: number; hours: number; minutes: number };
 type Stage = "sealed" | "opening" | "playing" | "revealed";
@@ -244,6 +245,8 @@ type Petal = {
 function PamalayeContent() {
   // petals must be generated client-only — Math.random() would hydration-mismatch
   const [drift, setDrift] = useState<Petal[]>([]);
+  const [coupleExpanded, setCoupleExpanded] = useState(false);
+
   useEffect(() => {
     setDrift(
       Array.from({ length: 10 }).map((_, i) => ({
@@ -255,6 +258,21 @@ function PamalayeContent() {
       })),
     );
   }, []);
+
+  function openCouple() {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(max-width: 640px)").matches) return;
+    setCoupleExpanded(true);
+  }
+
+  useEffect(() => {
+    if (!coupleExpanded) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setCoupleExpanded(false);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [coupleExpanded]);
 
   return (
     <div className="pamalaye-page">
@@ -502,6 +520,74 @@ function PamalayeContent() {
       <Revealable className="pamalaye-houses-panel">
         <header>
           <p className="pamalaye-section-label">the houses</p>
+
+          <div className="pamalaye-couple-pin">
+            <span className="pamalaye-couple-tape" aria-hidden="true" />
+            <figure
+              className="pamalaye-couple-portrait"
+              aria-label="Grasya and Valian — click to enlarge"
+              role="button"
+              tabIndex={0}
+              onClick={openCouple}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  openCouple();
+                }
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/couple.jpeg"
+                alt="Grasya and Valian"
+                loading="lazy"
+                draggable={false}
+              />
+            </figure>
+          </div>
+
+          {coupleExpanded &&
+            typeof document !== "undefined" &&
+            createPortal(
+              <div
+                className="pamalaye-couple-lightbox"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Grasya and Valian"
+                onClick={() => setCoupleExpanded(false)}
+              >
+                <button
+                  type="button"
+                  className="pamalaye-couple-lightbox-close"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCoupleExpanded(false);
+                  }}
+                  aria-label="Close"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path
+                      d="M6 6 L18 18 M18 6 L6 18"
+                      stroke="currentColor"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </button>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  className="pamalaye-couple-lightbox-img"
+                  src="/couple.jpeg"
+                  alt="Grasya and Valian"
+                />
+              </div>,
+              document.body,
+            )}
+
           <h2 className="pamalaye-h2">
             Two families <em>at one table.</em>
           </h2>

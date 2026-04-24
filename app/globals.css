@@ -5312,6 +5312,225 @@ html.site-open .paper-grain {
   margin-bottom: 2.4rem;
 }
 
+.pamalaye-couple-pin {
+  position: relative;
+  width: clamp(240px, 28vw, 300px);
+  margin: 2.2rem auto 1.8rem;
+  padding-top: 12px;
+}
+
+@media (max-width: 640px) {
+  .pamalaye-couple-pin {
+    width: min(78vw, 320px);
+    margin-top: 2.6rem;
+  }
+
+  .pamalaye-couple-tape {
+    width: 78px;
+    height: 22px;
+  }
+}
+
+.pamalaye-couple-tape {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 62px;
+  height: 18px;
+  transform: translateX(-50%) rotate(-3deg);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(250, 241, 220, 0.38) 0 4px,
+      rgba(154, 122, 62, 0.22) 4px 8px
+    ),
+    rgba(250, 241, 220, 0.55);
+  border-top: 1px solid rgba(154, 122, 62, 0.35);
+  border-bottom: 1px solid rgba(154, 122, 62, 0.25);
+  box-shadow:
+    0 2px 3px -1px rgba(42, 14, 19, 0.2),
+    0 0 0 1px rgba(250, 241, 220, 0.3) inset;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.pamalaye-couple-tape::before,
+.pamalaye-couple-tape::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: inherit;
+}
+
+.pamalaye-couple-tape::before {
+  left: -5px;
+  clip-path: polygon(100% 0, 0 20%, 20% 50%, 0 80%, 100% 100%);
+}
+
+.pamalaye-couple-tape::after {
+  right: -5px;
+  clip-path: polygon(0 0, 100% 20%, 80% 50%, 100% 80%, 0 100%);
+}
+
+.pamalaye-couple-portrait {
+  margin: 0;
+  padding: 6px 6px 16px;
+  background: var(--pam-ivory);
+  border: 1px solid rgba(154, 122, 62, 0.35);
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.06) inset,
+    0 12px 22px -14px rgba(42, 14, 19, 0.5);
+  transform-origin: 50% 8px;
+  animation: pam-couple-sway 20s ease-in-out infinite;
+  will-change: transform;
+  position: relative;
+  cursor: zoom-in;
+  transition: box-shadow 350ms ease;
+}
+
+.pamalaye-couple-portrait:focus-visible {
+  outline: 2px solid var(--pam-gilt);
+  outline-offset: 6px;
+}
+
+@media (max-width: 640px) {
+  .pamalaye-couple-portrait {
+    cursor: default;
+  }
+}
+
+.pamalaye-couple-portrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: sepia(0.08) saturate(0.94) contrast(0.98);
+}
+
+.pamalaye-couple-portrait:hover {
+  animation-play-state: paused;
+}
+
+@keyframes pam-couple-sway {
+  0%,
+  88%,
+  100% {
+    transform: rotate(-1.2deg);
+  }
+  2% {
+    transform: rotate(2.4deg);
+  }
+  5% {
+    transform: rotate(-2.6deg);
+  }
+  8% {
+    transform: rotate(1.8deg);
+  }
+  11% {
+    transform: rotate(-1.6deg);
+  }
+  14% {
+    transform: rotate(0.6deg);
+  }
+  17% {
+    transform: rotate(-1.2deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pamalaye-couple-portrait {
+    animation: none;
+    transform: rotate(-1.2deg);
+  }
+}
+
+.pamalaye-couple-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.94);
+  animation: pam-couple-lightbox-in 220ms ease-out;
+  cursor: zoom-out;
+}
+
+@keyframes pam-couple-lightbox-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.pamalaye-couple-lightbox-img {
+  display: block;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  animation: pam-couple-lightbox-img-in 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@keyframes pam-couple-lightbox-img-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.pamalaye-couple-lightbox-close {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: var(--pam-ivory);
+  color: var(--pam-narra);
+  border: 1px solid var(--pam-gilt);
+  border-radius: 50%;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow:
+    0 6px 18px -6px rgba(0, 0, 0, 0.7),
+    0 0 0 3px rgba(0, 0, 0, 0.35);
+  transition:
+    transform 200ms ease,
+    background-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease;
+  z-index: 1;
+}
+
+.pamalaye-couple-lightbox-close svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.pamalaye-couple-lightbox-close:hover,
+.pamalaye-couple-lightbox-close:focus-visible {
+  background: var(--pam-vermilion);
+  color: var(--pam-ivory);
+  transform: scale(1.08) rotate(90deg);
+  outline: none;
+  box-shadow:
+    0 8px 22px -6px rgba(0, 0, 0, 0.8),
+    0 0 0 3px rgba(0, 0, 0, 0.4);
+}
+
 .pamalaye-house-grid {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
