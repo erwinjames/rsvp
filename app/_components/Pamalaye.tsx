@@ -1002,8 +1002,9 @@ export default function Pamalaye() {
                   <circle cx="100" cy="100" r="98" fill="url(#pam-vinyl-gloss)" />
                 </svg>
                 <span className="vinyl-needle" aria-hidden="true">
-                  <span className="vinyl-needle-arm" />
-                  <span className="vinyl-needle-head" />
+                  <span className="vinyl-needle-arm">
+                    <span className="vinyl-needle-head" />
+                  </span>
                 </span>
               </button>
 
