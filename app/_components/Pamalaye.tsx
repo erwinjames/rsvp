@@ -124,6 +124,35 @@ function SampaguitaGarland() {
   );
 }
 
+function MemorialDove() {
+  return (
+    <svg
+      className="memorial-dove-svg"
+      viewBox="0 0 40 22"
+      aria-hidden="true"
+      role="presentation"
+    >
+      {/* raised wing (behind body) */}
+      <path
+        className="memorial-dove-wing"
+        d="M 13 11 Q 16 2 28 1.5 Q 20 6 22 11.5 Z"
+      />
+      {/* body: tail → back → head → beak → belly */}
+      <path
+        className="memorial-dove-body"
+        d="M 2.4 11.2 L 4.6 9.4 L 7.6 10.4 Q 14 9.2 22 9 Q 30 8.8 34 8 L 38.2 7.4 L 37.8 9.2 L 36.2 9.8 L 33.6 10.2 Q 29 11 22 12 Q 14 13.1 8 13.2 Q 4.6 13.1 2.4 11.2 Z"
+      />
+      {/* tail fan notch */}
+      <path
+        className="memorial-dove-tail"
+        d="M 2.4 11.2 L 4.2 11.2 L 3.2 12.6 Z"
+      />
+      {/* eye */}
+      <circle className="memorial-dove-eye" cx="35.2" cy="8.6" r="0.42" />
+    </svg>
+  );
+}
+
 function BananaLeafCorner({ className = "" }: { className?: string }) {
   return (
     <svg
@@ -626,11 +655,59 @@ function PamalayeContent() {
               Mr. Julito &amp; Mrs. Nancy Jusain
               <br />
               Luffy
-              <br />
-              <em className="pamalaye-house-note">Special mention: Nida Jusain 🕊️(Deceased)</em>
-              <br />
-              <em className="pamalaye-house-note">Special mention: Alma Torres 🕊️(Deceased)</em>
             </p>
+            <div
+              className="pamalaye-house-memoriam"
+              role="group"
+              aria-label="In loving memory"
+            >
+              <span
+                className="pamalaye-house-memoriam-mark"
+                aria-hidden="true"
+              >
+                <svg viewBox="-20 -5 40 10">
+                  <line
+                    x1="-18"
+                    y1="0"
+                    x2="-4"
+                    y2="0"
+                    stroke="currentColor"
+                    strokeWidth="0.4"
+                  />
+                  <line
+                    x1="18"
+                    y1="0"
+                    x2="4"
+                    y2="0"
+                    stroke="currentColor"
+                    strokeWidth="0.4"
+                  />
+                  <path
+                    d="M -2.6 0 L 0 -2.6 L 2.6 0 L 0 2.6 Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+              <p className="pamalaye-house-memoriam-label">
+                <span
+                  className="pamalaye-memoriam-dove is-left"
+                  aria-hidden="true"
+                >
+                  <MemorialDove />
+                </span>
+                Special mention
+                <span
+                  className="pamalaye-memoriam-dove is-right"
+                  aria-hidden="true"
+                >
+                  <MemorialDove />
+                </span>
+              </p>
+              <ul className="pamalaye-house-memoriam-names">
+                <li>Nida Jusain</li>
+                <li>Alma Torres</li>
+              </ul>
+            </div>
             <p className="pamalaye-house-note">
               Odiongan, Brgy. Novallas, Tanjay City
             </p>

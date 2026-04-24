@@ -5596,6 +5596,123 @@ html.site-open .paper-grain {
   letter-spacing: 0.02em;
 }
 
+.pamalaye-house-memoriam {
+  margin: 0.4rem 0 1rem;
+  text-align: center;
+  color: var(--pam-narra-soft);
+}
+
+.pamalaye-house-memoriam-mark {
+  display: block;
+  width: 100px;
+  margin: 0 auto 0.55rem;
+  color: var(--pam-gilt);
+  opacity: 0.9;
+}
+
+.pamalaye-house-memoriam-mark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.pamalaye-house-memoriam-label {
+  margin: 0 0 0.55rem;
+  font-family: var(--font-display), serif;
+  font-variation-settings: "opsz" 14;
+  font-style: italic;
+  font-size: 0.68rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--pam-moss);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.pamalaye-memoriam-dove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  flex: 0 0 auto;
+  color: var(--pam-gilt);
+  opacity: 0.92;
+  animation: pamalaye-dove-breath 4.2s ease-in-out infinite;
+}
+
+.pamalaye-memoriam-dove.is-right {
+  animation-delay: -2.1s;
+  /* pull back through the trailing letter-spacing of the uppercase label */
+  margin-left: -0.34em;
+}
+
+.pamalaye-memoriam-dove.is-right .memorial-dove-svg {
+  transform: scaleX(-1);
+}
+
+.memorial-dove-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.memorial-dove-body,
+.memorial-dove-tail {
+  fill: #fbf1dc;
+  stroke: var(--pam-gilt);
+  stroke-width: 0.5;
+  stroke-linejoin: round;
+}
+
+.memorial-dove-wing {
+  fill: #fbf1dc;
+  stroke: var(--pam-gilt);
+  stroke-width: 0.5;
+  stroke-linejoin: round;
+}
+
+.memorial-dove-eye {
+  fill: var(--pam-moss);
+}
+
+@keyframes pamalaye-dove-breath {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.88;
+  }
+  50% {
+    transform: translate3d(0, -1.6px, 0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pamalaye-memoriam-dove {
+    animation: none;
+  }
+}
+
+.pamalaye-house-memoriam-names {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-family: var(--font-display), serif;
+  font-variation-settings: "opsz" 40;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--pam-narra);
+  letter-spacing: 0.015em;
+}
+
 .pamalaye-house-bridge {
   display: flex;
   flex-direction: column;
