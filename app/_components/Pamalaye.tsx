@@ -916,7 +916,7 @@ function PamalayeContent() {
             <span className="pamalaye-asking-val">
               Nothing but your voice and a blessing
               <br />
-              <em>merienda will be served at five</em>
+              <em>merienda will be served at 3:00 pm</em>
             </span>
           </div>
         </div>
