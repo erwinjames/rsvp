@@ -6807,6 +6807,7 @@ html.site-open .paper-grain {
 .pamalaye-invitation-shell .envelope-scene {
   padding-top: 0;
   padding-bottom: 0;
+  z-index: 3;
 }
 
 /* ─── Reduced-motion fallback ─── */
