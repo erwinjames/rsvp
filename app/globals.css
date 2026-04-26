@@ -115,7 +115,7 @@ html.site-open .paper-grain {
 
 .envelope-scene {
   position: relative;
-  width: min(540px, 100%);
+  width: min(760px, 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -131,8 +131,8 @@ html.site-open .paper-grain {
   position: relative;
   /* Letter is inset 7% on each side → letter width = 86% of envelope width.
      width = 100vw / 0.86 makes the envelope-letter exactly 100vw.
-     Capped at 540px on larger screens. */
-  width: clamp(290px, calc(100vw / 0.86), 540px);
+     Capped at 760px on larger screens. */
+  width: clamp(290px, calc(100vw / 0.86), 760px);
   aspect-ratio: 5 / 3.2;
   transform-style: preserve-3d;
 }
@@ -1158,7 +1158,7 @@ html.site-open .paper-grain {
   background:
     radial-gradient(ellipse 70% 55% at calc(15% + var(--sp) * 20%) calc(20% + var(--sp) * 30%),
       rgba(201, 163, 79, 0.16),
-      transparent 60%),
+      transparent),
     radial-gradient(ellipse 60% 50% at calc(85% - var(--sp) * 15%) calc(85% - var(--sp) * 25%),
       rgba(128, 0, 32, 0.12),
       transparent 60%),
@@ -2266,12 +2266,10 @@ html.site-open .paper-grain {
   width: 44px;
   height: 1px;
   margin: 1rem auto;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(250, 244, 228, 0.35),
-    transparent
-  );
+  background: linear-gradient(to right,
+      transparent,
+      rgba(250, 244, 228, 0.35),
+      transparent);
 }
 
 .footer-blessing::after {
@@ -4854,13 +4852,11 @@ html.site-open .paper-grain {
   bottom: 0.4rem;
   left: 0;
   width: 1px;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    var(--pam-gilt) 12%,
-    var(--pam-gilt) 88%,
-    transparent 100%
-  );
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      var(--pam-gilt) 12%,
+      var(--pam-gilt) 88%,
+      transparent 100%);
   opacity: 0.55;
 }
 
@@ -4910,14 +4906,14 @@ html.site-open .paper-grain {
   inset: 8px 10px;
   background:
     /* top-left */
-    linear-gradient(var(--pam-gilt), var(--pam-gilt)) top    left  / 14px 1.5px no-repeat,
-    linear-gradient(var(--pam-gilt), var(--pam-gilt)) top    left  / 1.5px 14px no-repeat,
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) top left / 14px 1.5px no-repeat,
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) top left / 1.5px 14px no-repeat,
     /* top-right */
-    linear-gradient(var(--pam-gilt), var(--pam-gilt)) top    right / 14px 1.5px no-repeat,
-    linear-gradient(var(--pam-gilt), var(--pam-gilt)) top    right / 1.5px 14px no-repeat,
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) top right / 14px 1.5px no-repeat,
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) top right / 1.5px 14px no-repeat,
     /* bottom-left */
-    linear-gradient(var(--pam-gilt), var(--pam-gilt)) bottom left  / 14px 1.5px no-repeat,
-    linear-gradient(var(--pam-gilt), var(--pam-gilt)) bottom left  / 1.5px 14px no-repeat,
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) bottom left / 14px 1.5px no-repeat,
+    linear-gradient(var(--pam-gilt), var(--pam-gilt)) bottom left / 1.5px 14px no-repeat,
     /* bottom-right */
     linear-gradient(var(--pam-gilt), var(--pam-gilt)) bottom right / 14px 1.5px no-repeat,
     linear-gradient(var(--pam-gilt), var(--pam-gilt)) bottom right / 1.5px 14px no-repeat;
@@ -4944,12 +4940,14 @@ html.site-open .paper-grain {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.4);
 }
+
 .pamalaye-definition-tag em {
   color: var(--pam-gilt);
   font-style: normal;
   letter-spacing: 0;
   opacity: 0.85;
 }
+
 .pamalaye-definition-pron {
   font-family: var(--font-display), serif;
   font-style: italic;
@@ -4957,6 +4955,7 @@ html.site-open .paper-grain {
   color: var(--pam-vermilion);
   text-transform: lowercase;
 }
+
 .pamalaye-definition-pron-stress {
   font-weight: 600;
 }
@@ -5012,18 +5011,18 @@ html.site-open .paper-grain {
   margin: 0 auto 1.5rem;
   width: min(85%, 22rem);
 }
+
 .pamalaye-definition-rule-line {
   flex: 1 1 auto;
   height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--pam-gilt) 30%,
-    var(--pam-gilt) 70%,
-    transparent
-  );
+  background: linear-gradient(to right,
+      transparent,
+      var(--pam-gilt) 30%,
+      var(--pam-gilt) 70%,
+      transparent);
   opacity: 0.7;
 }
+
 .pamalaye-definition-rule svg {
   flex: 0 0 auto;
   display: block;
@@ -5038,6 +5037,7 @@ html.site-open .paper-grain {
   line-height: 1.6;
   color: var(--pam-narra);
 }
+
 .pamalaye-definition-gloss em {
   font-style: italic;
   font-weight: 500;
@@ -5175,10 +5175,8 @@ html.site-open .paper-grain {
   flex-direction: column;
   gap: 0.95rem;
   text-align: left;
-  background: linear-gradient(
-    rgba(154, 122, 62, 0.06),
-    rgba(154, 122, 62, 0.02)
-  );
+  background: linear-gradient(rgba(154, 122, 62, 0.06),
+      rgba(154, 122, 62, 0.02));
   border-top: 1px solid rgba(154, 122, 62, 0.28);
   border-bottom: 1px solid rgba(154, 122, 62, 0.28);
 }
@@ -5342,11 +5340,9 @@ html.site-open .paper-grain {
   height: 18px;
   transform: translateX(-50%) rotate(-3deg);
   background:
-    repeating-linear-gradient(
-      45deg,
+    repeating-linear-gradient(45deg,
       rgba(250, 241, 220, 0.38) 0 4px,
-      rgba(154, 122, 62, 0.22) 4px 8px
-    ),
+      rgba(154, 122, 62, 0.22) 4px 8px),
     rgba(250, 241, 220, 0.55);
   border-top: 1px solid rgba(154, 122, 62, 0.35);
   border-bottom: 1px solid rgba(154, 122, 62, 0.25);
@@ -5417,26 +5413,33 @@ html.site-open .paper-grain {
 }
 
 @keyframes pam-couple-sway {
+
   0%,
   88%,
   100% {
     transform: rotate(-1.2deg);
   }
+
   2% {
     transform: rotate(2.4deg);
   }
+
   5% {
     transform: rotate(-2.6deg);
   }
+
   8% {
     transform: rotate(1.8deg);
   }
+
   11% {
     transform: rotate(-1.6deg);
   }
+
   14% {
     transform: rotate(0.6deg);
   }
+
   17% {
     transform: rotate(-1.2deg);
   }
@@ -5465,6 +5468,7 @@ html.site-open .paper-grain {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -5485,6 +5489,7 @@ html.site-open .paper-grain {
     opacity: 0;
     transform: scale(0.94);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -5680,11 +5685,13 @@ html.site-open .paper-grain {
 }
 
 @keyframes pamalaye-dove-breath {
+
   0%,
   100% {
     transform: translate3d(0, 0, 0);
     opacity: 0.88;
   }
+
   50% {
     transform: translate3d(0, -1.6px, 0);
     opacity: 1;
@@ -5846,13 +5853,11 @@ html.site-open .paper-grain {
   top: 0.9rem;
   bottom: 0.9rem;
   width: 1px;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--pam-gilt) 12%,
-    var(--pam-gilt) 88%,
-    transparent
-  );
+  background: linear-gradient(to bottom,
+      transparent,
+      var(--pam-gilt) 12%,
+      var(--pam-gilt) 88%,
+      transparent);
   opacity: 0.6;
   z-index: 0;
 }
@@ -5874,12 +5879,10 @@ html.site-open .paper-grain {
   margin-top: 0.5em;
   border-radius: 50%;
   background:
-    radial-gradient(
-      circle at 32% 30%,
+    radial-gradient(circle at 32% 30%,
       #d97a8a 0%,
       var(--pam-vermilion) 60%,
-      #5a131e 100%
-    );
+      #5a131e 100%);
   box-shadow:
     0 0 0 2px var(--pam-ivory),
     0 0 0 3px rgba(154, 122, 62, 0.6);
@@ -5887,12 +5890,10 @@ html.site-open .paper-grain {
 
 .pamalaye-schedule-item.is-pivot .pamalaye-schedule-bullet {
   background:
-    radial-gradient(
-      circle at 32% 30%,
+    radial-gradient(circle at 32% 30%,
       #f0c98a 0%,
       var(--pam-gilt) 55%,
-      #5a3a14 100%
-    );
+      #5a3a14 100%);
   box-shadow:
     0 0 0 2px var(--pam-ivory),
     0 0 0 3px var(--pam-vermilion),
@@ -6140,7 +6141,7 @@ html.site-open .paper-grain {
   max-height: 220px;
 }
 
-.pamalaye-dress-img.is-missing + .pamalaye-dress-forms {
+.pamalaye-dress-img.is-missing+.pamalaye-dress-forms {
   display: block;
 }
 
@@ -6323,12 +6324,10 @@ html.site-open .paper-grain {
   width: 52px;
   height: 1px;
   margin: 0 auto 1.1rem;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--pam-gilt),
-    transparent
-  );
+  background: linear-gradient(to right,
+      transparent,
+      var(--pam-gilt),
+      transparent);
   opacity: 0.55;
 }
 
@@ -6468,5 +6467,256 @@ html.site-open .paper-grain {
   .garland-flower,
   .garland-leaf ellipse {
     opacity: 1;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Pamalaye Envelope Page — Redesign
+   Deep maroon background · botanical florals · display names · cream embossed envelope
+   ───────────────────────────────────────────────────────────── */
+
+/* override the shell background to deep burgundy */
+.pamalaye-invitation-shell:not(.is-open) {
+  background-image: url('/pamalye-envelope-background.png');
+  background-size: cover;
+  background-position: center;
+  background-color: #3a0010;
+  min-height: 100dvh;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  padding: clamp(1.5rem, 5vw, 3rem) clamp(1rem, 4vw, 2rem);
+}
+
+/* botanical floral background container */
+.pam-env-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  background-image: url('/pamalye-envelope-background.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.pam-env-floral {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  object-fit: contain;
+}
+
+.pam-env-floral-tl {
+  top: 0;
+  left: 0;
+  width: clamp(250px, 45vw, 700px);
+  height: clamp(250px, 45vw, 700px);
+  opacity: 0;
+  transform-origin: center;
+  transform: translate(-15%, -15%)rotate(254deg)scale(1.3);
+  animation: pam-floral-fade 1.8s ease 0.3s forwards;
+}
+
+.pam-env-floral-tr {
+  top: 0;
+  right: 0;
+  width: clamp(250px, 45vw, 700px);
+  height: clamp(250px, 45vw, 700px);
+  opacity: 0;
+  transform-origin: center;
+  transform: translate(15%, -15%)rotate(-378deg)scale(1.3);
+  animation: pam-floral-fade 2s ease 0.3s forwards;
+}
+
+.pam-env-floral-bl {
+  bottom: 0;
+  left: 0;
+  width: clamp(250px, 45vw, 700px);
+  height: clamp(250px, 45vw, 700px);
+  opacity: 0;
+  transform-origin: center;
+  transform: translate(-15%, 15%) rotate(45deg) scale(1.3);
+  animation: pam-floral-fade 2s ease 0.6s forwards;
+}
+
+.pam-env-floral-br {
+  bottom: 0;
+  right: 0;
+  width: clamp(250px, 45vw, 700px);
+  height: clamp(250px, 45vw, 700px);
+  opacity: 0;
+  transform-origin: center;
+  transform: translate(15%, 15%) rotate(-45deg) scale(1.3);
+  animation: pam-floral-fade 2s ease 0.9s forwards;
+}
+
+@keyframes pam-floral-fade {
+  to {
+    opacity: 0.85;
+  }
+}
+
+/* ─── Couple names heading ─── */
+
+.pam-env-names {
+  position: relative;
+  z-index: 3;
+  text-align: left;
+  width: clamp(260px, 82vw, 440px);
+  margin-bottom: clamp(0.4rem, 1.5vw, 0.9rem);
+  padding-left: 0.1em;
+  opacity: 0;
+  animation: pam-names-rise 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
+  transition: opacity 600ms ease;
+}
+
+.pam-env-names-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes pam-names-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pam-env-title {
+  margin: 0;
+  font-family: var(--font-display), serif;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.015em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.pam-env-title-line {
+  display: block;
+  font-size: clamp(3.6rem, 16vw, 7.5rem);
+  background: linear-gradient(155deg, #f8e080 0%, #e8bc48 35%, #c9962a 70%, #f0d060 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.pam-env-title-ampname {
+  font-size: clamp(3.2rem, 14vw, 6.8rem);
+}
+
+/* ─── Embossed envelope pattern overlay ─── */
+
+.pam-env-embossed {
+  position: relative;
+  overflow: hidden;
+}
+
+.pam-env-emboss-pattern {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: multiply;
+}
+
+/* ─── Envelope body — warmer cream for the redesign ─── */
+
+.pamalaye-invitation-shell .envelope {
+  width: clamp(260px, 86vw, 760px);
+}
+
+.pamalaye-invitation-shell .envelope-body {
+  background:
+    radial-gradient(ellipse at 35% 15%, #fffdf5 0%, transparent 55%),
+    linear-gradient(170deg, #f9f3e3 0%, #f0e6c8 100%);
+  box-shadow:
+    0 50px 90px -20px rgba(0, 0, 0, 0.75),
+    0 5px 0 #d9c898,
+    inset 0 2px 0 #fffde8,
+    inset 0 0 80px rgba(160, 120, 50, 0.1);
+  border: 1px solid rgba(180, 155, 90, 0.3);
+}
+
+.pamalaye-invitation-shell .envelope-pocket {
+  background: linear-gradient(165deg, #f0e4b8 0%, #dcc98a 100%);
+}
+
+.pamalaye-invitation-shell .envelope-flap::before {
+  background: linear-gradient(180deg, #f5edce 0%, #d9c68a 100%);
+}
+
+/* ─── Quote below envelope ─── */
+
+.pam-env-quote {
+  position: relative;
+  z-index: 3;
+  margin: clamp(0.8rem, 2vw, 1.4rem) 0 0;
+  font-family: var(--font-body), "EB Garamond", Georgia, serif;
+  font-size: clamp(0.9rem, 2.6vw, 1.1rem);
+  font-style: italic;
+  line-height: 1.6;
+  text-align: center;
+  color: rgba(245, 224, 174, 0.85);
+  max-width: 34ch;
+  opacity: 0;
+  animation: pam-quote-fade 1.4s ease 1.4s forwards;
+  transition: opacity 600ms ease;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+.pam-env-quote-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes pam-quote-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Caption colour override for dark background ─── */
+
+.pamalaye-invitation-shell .envelope-caption {
+  color: rgba(245, 224, 174, 0.5);
+}
+
+/* ─── Envelope scene vertical rhythm within the shell ─── */
+
+.pamalaye-invitation-shell .envelope-scene {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* ─── Reduced-motion fallback ─── */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pam-env-floral,
+  .pam-env-names,
+  .pam-env-quote {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

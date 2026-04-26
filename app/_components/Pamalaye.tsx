@@ -1008,15 +1008,87 @@ export default function Pamalaye() {
   }
 
   return (
-    <div className={`invitation-page pamalaye-invitation-shell ${isEnvelopeRevealed ? "is-open" : ""}`}>
+    <div
+      className={`invitation-page pamalaye-invitation-shell ${isEnvelopeRevealed ? "is-open" : ""}`}
+      style={!isEnvelopeRevealed ? {
+        backgroundImage: "url('/pamalye-envelope-background.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundColor: "#3a0010"
+      } : {}}
+    >
       <div className="paper-grain" aria-hidden="true" />
+
+      {/* ─── floral corner decorations ─────────────────────── */}
+      <div className="pam-env-bg" aria-hidden="true">
+        {/* TOP-LEFT flower */}
+        <img className="pam-env-floral pam-env-floral-tl" src="/flower-assets/6730368-01.png" alt="" aria-hidden="true" />
+
+        {/* TOP-RIGHT flower */}
+        <img className="pam-env-floral pam-env-floral-tr" src="/flower-assets/6730368-02.png" alt="" aria-hidden="true" />
+
+        {/* BOTTOM-LEFT flower */}
+        <img className="pam-env-floral pam-env-floral-bl" src="/flower-assets/6730368-06.png" alt="" aria-hidden="true" />
+
+        {/* BOTTOM-RIGHT flower */}
+        <img className="pam-env-floral pam-env-floral-br" src="/flower-assets/6730368-04.png" alt="" aria-hidden="true" />
+      </div>
+
+      {/* ─── couple names ── "Grasya" / "&Valian" ──────────────── */}
+      <div className={`pam-env-names ${isEnvelopeRevealed ? "pam-env-names-hidden" : ""}`} aria-hidden={isEnvelopeRevealed ? true : undefined}>
+        <h1 className="pam-env-title">
+          <span className="pam-env-title-line">Grasya</span>
+          <span className="pam-env-title-line pam-env-title-ampname">&amp;Valian</span>
+        </h1>
+      </div>
 
       <section
         className={`envelope-scene ${isEnvelopeOpening ? "is-opening" : ""} ${isEnvelopePlaying ? "is-playing" : ""} ${isEnvelopeRevealed ? "is-revealed" : ""}`}
         aria-label="Sealed envelope — tap the wax to open"
       >
         <div className="envelope">
-          <div className="envelope-body">
+          <div className="envelope-body pam-env-embossed">
+            {/* embossed botanical SVG pattern on envelope */}
+            <svg className="pam-env-emboss-pattern" viewBox="0 0 460 295" fill="none" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+              <g stroke="#b0a48a" strokeWidth="0.65" strokeLinecap="round" opacity="0.55">
+                {/* central floral spray */}
+                <path d="M 230 148 Q 200 120 180 90 Q 210 115 230 138" />
+                <path d="M 230 148 Q 260 120 280 90 Q 250 115 230 138" />
+                <path d="M 230 148 Q 210 175 185 195 Q 215 172 228 155" />
+                <path d="M 230 148 Q 250 175 275 195 Q 245 172 232 155" />
+                <path d="M 230 148 Q 190 148 160 135 Q 195 145 225 148" />
+                <path d="M 230 148 Q 270 148 300 135 Q 265 145 235 148" />
+                {/* top centre petals */}
+                <ellipse cx="210" cy="105" rx="12" ry="5" transform="rotate(-30 210 105)" />
+                <ellipse cx="250" cy="105" rx="12" ry="5" transform="rotate(30 250 105)" />
+                <ellipse cx="230" cy="96" rx="11" ry="4.5" />
+                {/* side leaves */}
+                <path d="M 175 138 Q 145 120 130 100 Q 155 120 172 135" />
+                <path d="M 285 138 Q 315 120 330 100 Q 305 120 288 135" />
+                {/* corner flourishes */}
+                <path d="M 30 30 Q 60 55 80 80 Q 55 60 35 35" />
+                <path d="M 30 30 Q 55 30 75 42 Q 50 35 32 32" />
+                <ellipse cx="52" cy="50" rx="10" ry="4" transform="rotate(-35 52 50)" />
+                <ellipse cx="65" cy="38" rx="8" ry="3.5" transform="rotate(-55 65 38)" />
+                {/* top-right corner */}
+                <path d="M 430 30 Q 400 55 380 80 Q 405 60 425 35" />
+                <path d="M 430 30 Q 405 30 385 42 Q 410 35 428 32" />
+                <ellipse cx="408" cy="50" rx="10" ry="4" transform="rotate(35 408 50)" />
+                <ellipse cx="395" cy="38" rx="8" ry="3.5" transform="rotate(55 395 38)" />
+                {/* bottom-left corner */}
+                <path d="M 30 265 Q 60 240 80 215 Q 55 237 35 262" />
+                <path d="M 30 265 Q 55 265 75 253 Q 50 260 32 263" />
+                <ellipse cx="52" cy="245" rx="10" ry="4" transform="rotate(35 52 245)" />
+                {/* bottom-right corner */}
+                <path d="M 430 265 Q 400 240 380 215 Q 405 237 425 262" />
+                <path d="M 430 265 Q 405 265 385 253 Q 410 260 428 263" />
+                <ellipse cx="408" cy="245" rx="10" ry="4" transform="rotate(-35 408 245)" />
+                {/* diagonal flap lines (top triangle) */}
+                <line x1="0" y1="0" x2="230" y2="163" strokeOpacity="0.3" />
+                <line x1="460" y1="0" x2="230" y2="163" strokeOpacity="0.3" />
+              </g>
+            </svg>
+
             <div className="envelope-letter">
               <span className="envelope-letter-ornament" aria-hidden="true">❦</span>
               <p className="envelope-letter-line">A quiet word, house to house</p>
@@ -1118,6 +1190,11 @@ export default function Pamalaye() {
           {canOpenEnvelope ? "tap the wax seal" : canPlayVinyl ? "drop the needle" : ""}
         </p>
       </section>
+
+      {/* ─── romantic quote below envelope ─────────────────────── */}
+      <p className={`pam-env-quote ${isEnvelopeRevealed ? "pam-env-quote-hidden" : ""}`} aria-hidden={isEnvelopeRevealed ? true : undefined}>
+        <em>With full hearts, we start a story<br />that&rsquo;s meant to last a lifetime.</em>
+      </p>
 
       <audio
         ref={audioRef}
