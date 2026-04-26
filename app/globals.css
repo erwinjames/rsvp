@@ -506,7 +506,7 @@ html.site-open .paper-grain {
   position: absolute;
   left: 50%;
   top: 63%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) translateZ(10px);
   width: clamp(86px, 12vw, 112px);
   aspect-ratio: 1 / 1;
   border: none;
@@ -570,7 +570,7 @@ html.site-open .paper-grain {
 
 .wax-crest:hover:not(:disabled),
 .wax-crest:focus-visible:not(:disabled) {
-  transform: translate(-50%, -50%) scale(1.05) rotate(-3deg);
+  transform: translate(-50%, -50%) translateZ(10px) scale(1.05) rotate(-3deg);
 }
 
 .wax-crest:hover:not(:disabled)::before {
@@ -681,6 +681,11 @@ html.site-open .paper-grain {
 .wedding-site.is-visible {
   display: block;
   animation: site-fade-in 900ms ease both;
+}
+
+.pamalaye-site {
+  position: relative;
+  z-index: 5;
 }
 
 @keyframes site-fade-in {
@@ -6508,8 +6513,8 @@ html.site-open .paper-grain {
 }
 
 .pam-env-floral-tl {
-  top: 0;
-  left: 0;
+  top: -176px;
+  left: -153px;
   width: clamp(250px, 45vw, 700px);
   height: clamp(250px, 45vw, 700px);
   opacity: 0;
@@ -6519,8 +6524,8 @@ html.site-open .paper-grain {
 }
 
 .pam-env-floral-tr {
-  top: 0;
-  right: 0;
+  top: -83px;
+  right: -106px;
   width: clamp(250px, 45vw, 700px);
   height: clamp(250px, 45vw, 700px);
   opacity: 0;
@@ -6530,7 +6535,7 @@ html.site-open .paper-grain {
 }
 
 .pam-env-floral-bl {
-  bottom: 0;
+  bottom: -123px;
   left: 0;
   width: clamp(250px, 45vw, 700px);
   height: clamp(250px, 45vw, 700px);
@@ -6541,13 +6546,13 @@ html.site-open .paper-grain {
 }
 
 .pam-env-floral-br {
-  bottom: 0;
+  bottom: -132px;
   right: 0;
   width: clamp(250px, 45vw, 700px);
   height: clamp(250px, 45vw, 700px);
   opacity: 0;
   transform-origin: center;
-  transform: translate(15%, 15%) rotate(-45deg) scale(1.3);
+  transform: translate(15%, 15%)rotate(-15deg)scale(1.3);
   animation: pam-floral-fade 2s ease 0.9s forwards;
 }
 
@@ -6562,18 +6567,25 @@ html.site-open .paper-grain {
 .pam-env-names {
   position: relative;
   z-index: 3;
-  text-align: left;
-  width: clamp(260px, 82vw, 440px);
-  margin-bottom: clamp(0.4rem, 1.5vw, 0.9rem);
-  padding-left: 0.1em;
-  opacity: 0;
-  animation: pam-names-rise 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
-  transition: opacity 600ms ease;
-}
-
-.pam-env-names-hidden {
+  text-align: center;
+  width: 100%;
+  margin-bottom: clamp(1rem, 3vw, 2.5rem);
   opacity: 0;
   pointer-events: none;
+  animation: pam-names-rise 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 1.2s ease,
+              filter 1.2s ease;
+}
+
+.pam-env-names.is-opening {
+  transform: translateY(-8vh) scale(0.85);
+  opacity: 0.85;
+}
+
+.pam-env-names.is-revealed,
+.pam-env-names-hidden {
+  display: none;
 }
 
 @keyframes pam-names-rise {
@@ -6590,15 +6602,13 @@ html.site-open .paper-grain {
 
 .pam-env-title {
   margin: 0;
-  font-family: var(--font-display), serif;
-  font-variation-settings: "opsz" 144, "SOFT" 100;
-  font-style: italic;
+  font-family: var(--font-script), cursive;
   font-weight: 400;
   line-height: 0.9;
   letter-spacing: -0.015em;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 0;
 }
 
@@ -6610,6 +6620,7 @@ html.site-open .paper-grain {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
+  filter: drop-shadow(0 4px 12px rgba(30, 0, 8, 0.35));
 }
 
 .pam-env-title-ampname {
@@ -6620,7 +6631,7 @@ html.site-open .paper-grain {
 
 .pam-env-embossed {
   position: relative;
-  overflow: hidden;
+  /* Removed overflow: hidden so .envelope-letter can pop out */
 }
 
 .pam-env-emboss-pattern {

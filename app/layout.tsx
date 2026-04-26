@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { EB_Garamond, Fraunces } from "next/font/google";
+import { EB_Garamond, Fraunces, Great_Vibes } from "next/font/google";
 import "./globals.css";
 
 const displayFont = Fraunces({
@@ -16,6 +16,12 @@ const bodyFont = EB_Garamond({
   style: ["normal", "italic"],
 });
 
+const scriptFont = Great_Vibes({
+  variable: "--font-script",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: "Grasya & Valian — a letter to you",
   description: "A botanical letterpress invitation. Saturday, June 8, 2026.",
@@ -29,7 +35,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${displayFont.variable} ${bodyFont.variable} h-full antialiased`}
+      className={`${displayFont.variable} ${bodyFont.variable} ${scriptFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
