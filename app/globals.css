@@ -210,7 +210,7 @@ html.site-open .paper-grain {
 
 .envelope-vinyl {
   position: relative;
-  width: clamp(120px, 20vw, 170px);
+  width: clamp(140px, 28vw, 220px);
   aspect-ratio: 1 / 1;
   margin: 0.35rem 0;
   padding: 0;
@@ -6579,8 +6579,9 @@ html.site-open .paper-grain {
 }
 
 .pam-env-names.is-opening {
-  transform: translateY(-8vh) scale(0.85);
-  opacity: 0.85;
+  transform: translateY(-14vh) scale(0.7);
+  opacity: 0;
+  filter: blur(6px);
 }
 
 .pam-env-names.is-revealed,
