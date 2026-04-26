@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
 
 type Diff = { days: number; hours: number; minutes: number };
 type Stage = "sealed" | "opening" | "playing" | "revealed";
@@ -1022,16 +1023,16 @@ export default function Pamalaye() {
       {/* ─── floral corner decorations ─────────────────────── */}
       <div className="pam-env-bg" aria-hidden="true">
         {/* TOP-LEFT flower */}
-        <img className="pam-env-floral pam-env-floral-tl" src="/flower-assets/6730368-01.png" alt="" aria-hidden="true" />
+        <Image className="pam-env-floral pam-env-floral-tl" src="/flower-assets/6730368-01.png" alt="" aria-hidden="true" width={1000} height={1000} priority sizes="(max-width: 640px) 700px, 1000px" />
 
         {/* TOP-RIGHT flower */}
-        <img className="pam-env-floral pam-env-floral-tr" src="/flower-assets/6730368-02.png" alt="" aria-hidden="true" />
+        <Image className="pam-env-floral pam-env-floral-tr" src="/flower-assets/6730368-02.png" alt="" aria-hidden="true" width={1000} height={1000} priority sizes="(max-width: 640px) 500px, 1000px" />
 
         {/* BOTTOM-LEFT flower */}
-        <img className="pam-env-floral pam-env-floral-bl" src="/flower-assets/6730368-06.png" alt="" aria-hidden="true" />
+        <Image className="pam-env-floral pam-env-floral-bl" src="/flower-assets/6730368-06.png" alt="" aria-hidden="true" width={1000} height={1000} priority sizes="(max-width: 640px) 500px, 1000px" />
 
         {/* BOTTOM-RIGHT flower */}
-        <img className="pam-env-floral pam-env-floral-br" src="/flower-assets/6730368-04.png" alt="" aria-hidden="true" />
+        <Image className="pam-env-floral pam-env-floral-br" src="/flower-assets/6730368-04.png" alt="" aria-hidden="true" width={1000} height={1000} priority sizes="(max-width: 640px) 500px, 1000px" />
       </div>
 
       {/* ─── couple names ── "Grasya" / "&Valian" ──────────────── */}
