@@ -6562,6 +6562,41 @@ html.site-open .paper-grain {
   }
 }
 
+/* mobile flower adjustments — bring them into view */
+@media (max-width: 640px) {
+  .pam-env-floral-tl {
+    top: -261px;
+    left: -132px;
+    width: 700px;
+    height: 700px;
+    transform: translate(-10%, -10%) rotate(254deg) scale(1.3);
+  }
+
+  .pam-env-floral-tr {
+    right: -97px;
+    width: 500px;
+    height: 501px;
+    top: -135px;
+    transform: translate(10%, -10%) rotate(-378deg) scale(1.3);
+  }
+
+  .pam-env-floral-bl {
+    bottom: -165px;
+    left: -30px;
+    width: 500px;
+    height: 500px;
+    transform: translate(-10%, 10%) rotate(45deg) scale(1.1);
+  }
+
+  .pam-env-floral-br {
+    bottom: -60px;
+    right: -30px;
+    width: 500px;
+    height: 500px;
+    transform: translate(10%, 10%) rotate(-15deg) scale(1.1);
+  }
+}
+
 /* ─── Couple names heading ─── */
 
 .pam-env-names {
