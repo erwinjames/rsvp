@@ -6574,8 +6574,8 @@ html.site-open .paper-grain {
   pointer-events: none;
   animation: pam-names-rise 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
   transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 1.2s ease,
-              filter 1.2s ease;
+    opacity 1.2s ease,
+    filter 1.2s ease;
 }
 
 .pam-env-names.is-opening {
@@ -6605,7 +6605,7 @@ html.site-open .paper-grain {
   font-family: var(--font-script), cursive;
   font-weight: 400;
   line-height: 0.9;
-  letter-spacing: -0.015em;
+  letter-spacing: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6615,16 +6615,70 @@ html.site-open .paper-grain {
 .pam-env-title-line {
   display: block;
   font-size: clamp(3.6rem, 16vw, 7.5rem);
-  background: linear-gradient(155deg, #f8e080 0%, #e8bc48 35%, #c9962a 70%, #f0d060 100%);
+  padding: 0.2em 0.4em;
+  margin: -0.2em -0.4em;
+  background: linear-gradient(105deg,
+      #c9962a 0%,
+      #e8bc48 20%,
+      #f0d060 35%,
+      #fffbe6 48%,
+      #fff 50%,
+      #fffbe6 52%,
+      #f0d060 65%,
+      #e8bc48 80%,
+      #c9962a 100%);
+  background-size: 250% 100%;
+  background-position: 100% 0;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
   filter: drop-shadow(0 4px 12px rgba(30, 0, 8, 0.35));
+  animation: pam-gold-shimmer 4s ease-in-out 1.6s infinite;
 }
 
-.pam-env-title-ampname {
-  font-size: clamp(3.2rem, 14vw, 6.8rem);
+@keyframes pam-gold-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+
+  50% {
+    background-position: -50% 0;
+  }
+
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.pam-env-title-valian {
+  position: relative;
+}
+
+.pam-env-amp {
+  position: absolute;
+  top: -0.1em !important;
+  right: 92%;
+  font-size: 1em;
+  margin-right: 0.15em;
+  background: linear-gradient(105deg,
+      #c9962a 0%,
+      #e8bc48 20%,
+      #f0d060 35%,
+      #fffbe6 48%,
+      #fff 50%,
+      #fffbe6 52%,
+      #f0d060 65%,
+      #e8bc48 80%,
+      #c9962a 100%);
+  background-size: 250% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  opacity: 0.85;
+  animation: pam-gold-shimmer 4s ease-in-out 1.6s infinite;
 }
 
 /* ─── Embossed envelope pattern overlay ─── */

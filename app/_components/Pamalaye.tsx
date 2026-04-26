@@ -1038,7 +1038,7 @@ export default function Pamalaye() {
       <div className={`pam-env-names ${isEnvelopeOpening ? "is-opening" : ""} ${isEnvelopeRevealed ? "is-revealed" : ""}`} aria-hidden={isEnvelopeRevealed ? true : undefined}>
         <h1 className="pam-env-title">
           <span className="pam-env-title-line">Grasya</span>
-          <span className="pam-env-title-line pam-env-title-ampname">&amp; Valian</span>
+          <span className="pam-env-title-line pam-env-title-valian"><span className="pam-env-amp">&amp;</span>Valian</span>
         </h1>
       </div>
 
