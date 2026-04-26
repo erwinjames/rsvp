@@ -6566,8 +6566,18 @@ html.site-open .paper-grain {
   }
 }
 
+@keyframes pam-floral-fade-mobile {
+  to {
+    opacity: 0.25;
+  }
+}
+
 /* mobile flower adjustments — bring them into view */
 @media (max-width: 640px) {
+  .pam-env-floral {
+    animation-name: pam-floral-fade-mobile;
+  }
+
   .pam-env-floral-tl {
     top: -261px;
     left: -132px;
@@ -6673,7 +6683,8 @@ html.site-open .paper-grain {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 4px 12px rgba(30, 0, 8, 0.35));
+  /* Double shadow: a sharp 1px offset for 3D metallic thickness, plus a soft spread for depth */
+  filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.6)) drop-shadow(0 6px 16px rgba(30, 0, 8, 0.45));
   animation: pam-gold-shimmer 4s ease-in-out 1.6s infinite;
 }
 
@@ -6719,6 +6730,7 @@ html.site-open .paper-grain {
   background-clip: text;
   color: transparent;
   opacity: 0.85;
+  filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.6)) drop-shadow(0 6px 16px rgba(30, 0, 8, 0.45));
   animation: pam-gold-shimmer 4s ease-in-out 1.6s infinite;
 }
 
