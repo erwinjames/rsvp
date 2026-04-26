@@ -502,6 +502,10 @@ html.site-open .paper-grain {
   box-shadow: inset 0 18px 30px rgba(30, 0, 8, 0.45);
 }
 
+.pam-env-valian-space {
+  margin-left: 54px;
+}
+
 .wax-crest {
   position: absolute;
   left: 50%;
@@ -6689,6 +6693,7 @@ html.site-open .paper-grain {
 
 .pam-env-title-valian {
   position: relative;
+  padding-left: 0.35em;
 }
 
 .pam-env-amp {
